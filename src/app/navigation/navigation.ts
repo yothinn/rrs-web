@@ -34,7 +34,7 @@ export const navigation: FuseNavigation[] = [
         //translate: 'NAV.APPLICATIONS',
         icon     : 'email',
         type     : 'item',
-        url      : '/sample',
+        url      : '/dashboard',
 
     },
     {
@@ -51,7 +51,7 @@ export const navigation: FuseNavigation[] = [
         icon     : 'email',
         //translate: 'NAV.APPLICATIONS',
         type     : 'item',
-        url      : '/permission/list',
+        url      : '/permissions/list',
     },
     {
         id       : 'customer',
@@ -59,7 +59,7 @@ export const navigation: FuseNavigation[] = [
         icon     : 'email',
         //translate: 'NAV.APPLICATIONS',
         type     : 'item',
-        url      : '/customer/list',
+        url      : '/customers/list',
     },
 ];
 
@@ -74,12 +74,12 @@ export const restuarantNav: FuseNavigation[] = [
         url      : '/restuarant/dashboard',           // /restuarant/dashboard?rest=id
     },
     {
-        id       : 'restDesp',
+        id       : 'restInfo',
         title    : 'ร้านค้า',
         //translate: 'NAV.APPLICATIONS',
         icon     : 'email',
         type     : 'item',
-        url      : '/restuarant/desp',               // /restuarant/desp?rest=id
+        url      : '/restuarant/info',               // /restuarant/desp?rest=id
     },
     {
         id       : 'mealGroup',
@@ -94,7 +94,7 @@ export const restuarantNav: FuseNavigation[] = [
                 //translate: 'NAV.SAMPLE.TITLE',
                 type     : 'item',
                 //icon     : 'email',
-                url      : '/restuarant/meal?rest=id&meal=new',
+                url      : '/restuarant/meal',      // /restuarant/meal?rest=id&meal=new
             }
         ]
     },

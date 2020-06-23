@@ -27,9 +27,14 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { SampleModule } from 'app/main/sample/sample.module';
 import { GlobalErrorHandler } from "./global-error-handler";
 import { ServerErrorInterceptor } from "./server-error.interceptor";
+
+import { SampleModule } from 'app/main/sample/sample.module';
+import { SuperadminModule } from './superadmin/superadmin.module';
+import { UserPermissionModule } from './user-permission/user-permission.module';
+import { RestuarantModule } from './restuarant/restuarant.module';
+import { CustomersModule } from './customers/customers.module';
 
 const appRoutes: Routes = [
     {
@@ -38,7 +43,7 @@ const appRoutes: Routes = [
     },
     {
         path      : '**',
-        redirectTo: 'sample'
+        redirectTo: 'dashboard'
     }
 ];
 
@@ -84,7 +89,11 @@ export const MY_FORMATS = {
         // App modules
         LayoutModule,
         NgxSpinnerModule,
-        SampleModule
+        SampleModule,
+        SuperadminModule,
+        UserPermissionModule,
+        RestuarantModule,
+        CustomersModule,
     ],
     bootstrap   : [
         AppComponent
