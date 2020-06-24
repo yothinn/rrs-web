@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule, 
+         MatInputModule,  } from "@angular/material";
+
+
 import { FuseSharedModule } from '@fuse/shared.module';
 import { AuthenGuardService } from 'app/authentication/authen-guard.service';
 
@@ -40,7 +45,13 @@ const routes = [
 
     TranslateModule,
   
-    FuseSharedModule
+    FuseSharedModule,
+
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
+
   ],
   exports: [
     RestuarantInfoComponent,

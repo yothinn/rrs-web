@@ -1,3 +1,129 @@
-<p>
-  restuarant-info works!
-</p>
+<div class="page-layout carded  fullwidth inner-scroll">
+  <!-- TOP BACKGROUND -->
+  <!-- <div class="top-bg accent"></div> -->
+  <!-- / TOP BACKGROUND -->
+  <!-- CENTER -->
+  <div class="center">
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <span class="logo-text h1"> 
+          เพิ่มร้านค้า
+        </span>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <form [formGroup]="restInfoForm" fxLayout="column" fxFlex>
+        <div fxLayout="row wrap">
+          <div fxLayout="column">
+            <button>เลือกรูปภาพ</button>
+          </div>
+          <div fxLayout="column">
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>ชื่อร้านค้า</mat-label>
+              <input matInput formControlName="name" name="name">
+            </mat-form-field>
+                
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>ชื่อแสดงผล</mat-label>
+              <input matInput formControlName="displayName" name="displayName">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>รายละเอียดร้านค้า</mat-label>
+              <textarea matInput formControlName="description" name="description" rows="4">
+              </textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row">
+          <div formGroupName="location" fxLayout="column">
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>บ้านเลขที่</mat-label>
+              <input matInput formControlName="addressLine" name="addressLine">
+            </mat-form-field>
+          
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>ถนน</mat-label>
+              <input matInput formControlName="addressStreet" name="addressStreet">
+            </mat-form-field>
+          
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>รหัสไปรษณีย์</mat-label>
+              <input matInput formControlName="addressPostalCode" name="addressPostCode">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>ตำบล/แขวง</mat-label>
+              <input matInput formControlName="addressSubDistrict" name="addressSubDistrict">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>อำเภอ/เขต</mat-label>
+              <input matInput formControlName="addressDistrict" name="addressDistrict">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>จังหวัด</mat-label>
+              <input matInput formControlName="addressProvince" name="addressProvince">
+            </mat-form-field>
+          </div>
+          <div fxLayout="column">
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>เบอร์มือถือ</mat-label>
+              <input matInput formControlName="mobileNo" name="mobileNo">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>เบอร์อื่นๆ</mat-label>
+              <input matInput formControlName="otherNo" name="otherNo">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+              <mat-label>จำนวนรองรับ</mat-label>
+              <input matInput formControlName="maxGuestCapacity" name="maxGuestCapacity">
+            </mat-form-field>
+
+            <div fxLayout="row">
+              <button>ยกเลิก</button>
+              <button>บันทึก</button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- /CONTENT -->
+  </div>
+    <!-- / CENTER -->
+</div>
+
+
+
+
+<!-- <div class="pl-20 pr-16 h1 pb-20 pt-20">
+  <mat-label>ข้อมูลส่วนตัว</mat-label>
+</div> -->
+
+<!-- <div fxLayout="row wrap" formGroupName="personalInfo" fxFlex="100">
+  <div fxLayoutAlign="center" fxFlex="100" fxFlex.gt-xs="20" class="pl-20 pr-16">
+    <mat-form-field appearance="outline" fxFlex>
+      <mat-label>คำนำหน้าชื่อ</mat-label>
+      <mat-select formControlName="title" name="title">
+        <mat-option *ngFor="let itemt of title" [value]="itemt.viewValue">
+          {{itemt.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div fxLayoutAlign="center" fxFlex="100" fxFlex.gt-xs="40" class="pl-20 pr-16">
+    <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+      <mat-label>ชื่อ</mat-label>
+      <input matInput formControlName="firstNameThai" name="firstNameThai">
+      <mat-error
+        *ngIf="involvedpartyForm.get('personalInfo').get('firstNameThai').hasError('required')">
+        กรุณาระบุ ชื่อ</mat-error>
+    </mat-form-field>
+  </div> -->
