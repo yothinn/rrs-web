@@ -10,6 +10,7 @@ import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 export class RestuarantInfoComponent implements OnInit {
 
   restInfoForm: FormGroup;
+  imgLogo: string;
 
   constructor(
     private _fb: FormBuilder,
@@ -33,8 +34,10 @@ export class RestuarantInfoComponent implements OnInit {
       maxGuestCapacity: [''],
       mobileNo: [''],
       otherNo: [''],
-
+      activate: [true],
     });
+
+    this.imgLogo = '/assets/images/backgrounds/restLogo.jpg';
   }
 
 }

@@ -1,103 +1,126 @@
 <div class="page-layout carded  fullwidth inner-scroll">
-  <!-- TOP BACKGROUND -->
-  <!-- <div class="top-bg accent"></div> -->
-  <!-- / TOP BACKGROUND -->
-  <!-- CENTER -->
-  <div class="center">
-    <!-- HEADER -->
-    <div class="header accent" fxLayout="row wrap" fxLayoutAlign="space-between center">
-        <span class="logo-text h1"> 
-          เพิ่มร้านค้า
-        </span>
-    </div>
-
-    <!-- CONTENT -->
-    <div class="content">
-      <form [formGroup]="restInfoForm" fxLayout="column" fxFlex>
-        <div fxLayout="row wrap">
-          <div fxLayout="column">
-            <button>เลือกรูปภาพ</button>
-          </div>
-          <div fxLayout="column">
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>ชื่อร้านค้า</mat-label>
-              <input matInput formControlName="name" name="name">
-            </mat-form-field>
-                
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>ชื่อแสดงผล</mat-label>
-              <input matInput formControlName="displayName" name="displayName">
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>รายละเอียดร้านค้า</mat-label>
-              <textarea matInput formControlName="description" name="description" rows="4">
-              </textarea>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div fxLayout="row">
-          <div formGroupName="location" fxLayout="column">
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>บ้านเลขที่</mat-label>
-              <input matInput formControlName="addressLine" name="addressLine">
-            </mat-form-field>
-          
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>ถนน</mat-label>
-              <input matInput formControlName="addressStreet" name="addressStreet">
-            </mat-form-field>
-          
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>รหัสไปรษณีย์</mat-label>
-              <input matInput formControlName="addressPostalCode" name="addressPostCode">
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>ตำบล/แขวง</mat-label>
-              <input matInput formControlName="addressSubDistrict" name="addressSubDistrict">
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>อำเภอ/เขต</mat-label>
-              <input matInput formControlName="addressDistrict" name="addressDistrict">
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>จังหวัด</mat-label>
-              <input matInput formControlName="addressProvince" name="addressProvince">
-            </mat-form-field>
-          </div>
-          <div fxLayout="column">
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>เบอร์มือถือ</mat-label>
-              <input matInput formControlName="mobileNo" name="mobileNo">
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>เบอร์อื่นๆ</mat-label>
-              <input matInput formControlName="otherNo" name="otherNo">
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-              <mat-label>จำนวนรองรับ</mat-label>
-              <input matInput formControlName="maxGuestCapacity" name="maxGuestCapacity">
-            </mat-form-field>
-
-            <div fxLayout="row">
-              <button>ยกเลิก</button>
-              <button>บันทึก</button>
-            </div>
-
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <!-- /CONTENT -->
+  <!-- HEADER -->
+  <div class="header accent" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <span class="logo-text h1 pl-32 pt-16 pb-16"> 
+      เพิ่มร้านค้า
+    </span>
   </div>
-    <!-- / CENTER -->
+
+  <!-- CONTENT -->
+  <div class="content">
+    <form [formGroup]="restInfoForm" fxLayout="column" fxFlex>
+      <!-- Restuarant image/name/display name/description -->
+      <div fxLayout="row wrap" id="restName">
+        <div fxLayout="column" fxFlex class="mr-32">
+          <img [src]="imgLogo" class="mb-32">
+          <button mat-raised-button class="accent">
+            เลือกรูปภาพ
+          </button>
+        </div>
+        <!-- Name , displayName and description -->
+        <div fxLayout="column" fxFlex fxGrow="1.5">
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>ชื่อร้านค้า</mat-label>
+            <input matInput formControlName="name" name="name">
+          </mat-form-field>
+              
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>ชื่อแสดงผล</mat-label>
+            <input matInput formControlName="displayName" name="displayName">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>รายละเอียดร้านค้า</mat-label>
+            <textarea matInput formControlName="description" name="description" rows="4">
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="pb-16 h2">
+        <mat-label>ที่อยู่ร้านค้า</mat-label>
+      </div>
+
+      <div fxLayout="row" id="restAddress">
+        <!--  Address Form -->
+        <div formGroupName="location" fxLayout="column" fxFlex class="mr-32">
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>บ้านเลขที่</mat-label>
+            <input matInput formControlName="addressLine" name="addressLine">
+          </mat-form-field>
+        
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>ถนน</mat-label>
+            <input matInput formControlName="addressStreet" name="addressStreet">
+          </mat-form-field>
+        
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>รหัสไปรษณีย์</mat-label>
+            <input matInput formControlName="addressPostalCode" name="addressPostCode">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>ตำบล/แขวง</mat-label>
+            <input matInput formControlName="addressSubDistrict" name="addressSubDistrict">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>อำเภอ/เขต</mat-label>
+            <input matInput formControlName="addressDistrict" name="addressDistrict">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>จังหวัด</mat-label>
+            <input matInput formControlName="addressProvince" name="addressProvince">
+          </mat-form-field>
+        </div>
+
+        <!-- Mobile and activate -->
+        <div fxLayout="column" fxFlex>
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>เบอร์มือถือ</mat-label>
+            <input matInput formControlName="mobileNo" name="mobileNo">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>เบอร์อื่นๆ</mat-label>
+            <input matInput formControlName="otherNo" name="otherNo">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex>
+            <mat-label>จำนวนรองรับ</mat-label>
+            <input matInput formControlName="maxGuestCapacity" name="maxGuestCapacity">
+          </mat-form-field>
+
+          <div class="example-full-width" appearance="outline" fxFlex fxLayoutAlign="space-between center">
+            <mat-slide-toggle formControlName="activate" fxFlex >
+              <span class="h2">
+                เปิดรับการจอง
+              </span>
+            </mat-slide-toggle>
+          </div>
+
+          <div class="example-full-width" fxFlex>
+            <!-- Empty block : for align layout-->
+          </div>
+
+          <div class="example-full-width" fxLayout="row" fxFlex fxLayoutAlign="flex-end center">
+            <div>
+              <button mat-raised-button color="warn" class="ml-16 mr-16">
+                ยกเลิก
+              </button>
+            </div>
+            <div>
+              <button mat-raised-button class="accent ml-16 mr-32">
+                บันทึก
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 
