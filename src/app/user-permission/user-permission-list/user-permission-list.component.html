@@ -1,3 +1,102 @@
-<p>
-  user-permission-list works!
-</p>
+<div class="page-layout carded  fullwidth inner-scroll">
+  <!-- HEADER -->
+  <div class="header accent" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <span class="logo-text h1 pl-32 pt-16 pb-16"> 
+      กำหนดสิทธิผู้ใช้งาน
+    </span>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content-card">
+    <div class="content">
+      <ngx-datatable
+        class="material" 
+        [columnMode]="'force'" 
+        [headerHeight]="64" 
+        [footerHeight]="64"
+        rowHeight="auto" 
+        [scrollbarV]="true"
+        [scrollbarH]="true" 
+        [virtualization]="false"
+        [selected]="selected"
+        [selectionType]="SelectionType.single"
+        [rows]="rows" 
+      >
+
+        <ngx-datatable-column name="ชื่อ-นามสกุล">
+          <ng-template ngx-datatable-cell-template let-row="row">
+            {{ row.firstName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="ชื่อผู้ใช้">
+          <ng-template ngx-datatable-cell-template let-row="row">
+            {{ row.username }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="สิทธิ">
+          <ng-template ngx-datatable-cell-template let-row="row">
+            {{ row.roles }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column>
+          <ng-template ngx-datatable-cell-template let-row="row">
+            <button class="mat-icon-button" aria-label="More" [matMenuTriggerFor]="moreMenu"
+            (click)="$event.stopPropagation()">
+            <mat-icon class="secondary-text">more_vert</mat-icon>
+            </button>
+
+            <mat-menu #moreMenu>
+              <button mat-menu-item aria-label="edit" (click)="editData(row)">
+                <mat-icon>edit</mat-icon>
+                <span>แก้ไข</span>
+              </button>
+            </mat-menu>
+          </ng-template>
+        </ngx-datatable-column>
+
+      </ngx-datatable>
+    </div>
+  </div>
+</div>
+
+<button 
+  mat-raised-button 
+  class="accent"
+  id="btn-addUser"
+>
+  เพิ่มผู้ใช้งาน
+</button>
+
+
+
+<!-- <ngx-datatable-column [flexGrow]="1">
+  <ng-template ngx-datatable-cell-template let-row="row">
+    <button class="mat-icon-button" aria-label="More" [matMenuTriggerFor]="moreMenu"
+      (click)="$event.stopPropagation()">
+      <mat-icon class="secondary-text">more_vert</mat-icon>
+    </button>
+
+    <mat-menu #moreMenu>
+      <button mat-menu-item aria-label="edit" (click)="editData(row)">
+        <mat-icon>edit</mat-icon>
+        <span>แก้ไข</span>
+      </button>
+      <button mat-menu-item aria-label="send" (click)="changeStatusData(row, 'golive')">
+        <mat-icon>send</mat-icon>
+        <span>ส่งใบสั่งงาน</span>
+      </button>
+      <button mat-menu-item aria-label="block" (click)="changeStatusData(row, 'close')">
+        <mat-icon>block</mat-icon>
+        <span>ปิดใบสั่งงาน</span>
+      </button>
+      <button mat-menu-item aria-label="delete" (click)="deleteData(row)">
+        <mat-icon>delete</mat-icon>
+        <span>ลบ</span>
+      </button>
+    </mat-menu>
+  </ng-template>
+</ngx-datatable-column> -->
+

@@ -1,0 +1,11 @@
+@import "src/@fuse/scss/fuse";
+
+#btn-addUser {
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    bottom: 32px;
+    right: 32px;
+ //   padding: 0;
+    z-index: 99;
+}

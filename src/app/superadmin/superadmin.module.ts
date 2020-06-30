@@ -6,6 +6,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { AuthenGuardService } from 'app/authentication/authen-guard.service';
 
+import {MatCardModule} from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes = [
@@ -27,7 +30,9 @@ const routes = [
 
     TranslateModule,
   
-    FuseSharedModule
+    FuseSharedModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   exports       : [
     DashboardComponent

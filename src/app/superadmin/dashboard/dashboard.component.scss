@@ -1,0 +1,21 @@
+@import "src/@fuse/scss/fuse";
+
+#emptyRest {
+    position: relative;
+    left: 48px;
+    top: 48px;
+}
+
+.content {
+    overflow-y: auto;
+}
+
+.restuarantList {
+    //overflow-y: auto;
+}
+  
+.restuarantCard {
+    width: 250px;
+    height: 250px;
+    margin: 15px 15px 15px 15px;
+}

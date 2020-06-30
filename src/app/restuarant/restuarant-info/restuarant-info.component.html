@@ -13,9 +13,12 @@
       <div fxLayout="row wrap" id="restName">
         <div fxLayout="column" fxFlex class="mr-32">
           <img [src]="imgLogo" class="mb-32">
-          <button mat-raised-button class="accent">
-            เลือกรูปภาพ
-          </button>
+          <div class="accent" id="logoWrapper">
+            <mat-label>
+              เลือกรูปภาพ
+            </mat-label>
+            <!-- <input type="file" id="logoUpload" /> -->
+          </div>
         </div>
         <!-- Name , displayName and description -->
         <div fxLayout="column" fxFlex fxGrow="1.5">
