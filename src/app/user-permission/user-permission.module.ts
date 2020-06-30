@@ -10,10 +10,14 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule, 
+         MatInputModule,  } from "@angular/material";
 
 
 
 import { UserPermissionListComponent } from './user-permission-list/user-permission-list.component';
+import { UserPermissionDialogComponent } from './user-permission-dialog/user-permission-dialog.component';
 
 const routes = [
   {
@@ -25,7 +29,8 @@ const routes = [
 
 @NgModule({
   declarations: [
-    UserPermissionListComponent
+    UserPermissionListComponent,
+    UserPermissionDialogComponent
   ],
   imports: [
     CommonModule,
@@ -39,9 +44,15 @@ const routes = [
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   exports: [
     UserPermissionListComponent
+  ],
+  entryComponents: [
+    UserPermissionDialogComponent
   ]
 })
 export class UserPermissionModule { }

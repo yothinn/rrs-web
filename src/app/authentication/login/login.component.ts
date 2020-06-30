@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
         const data = this.loginForm.getRawValue();
         this.auth.login(data)
             .then((result) => {
+                console.log(result.user);
                 this.router.navigate(['']);
             })
             .catch((error) => {

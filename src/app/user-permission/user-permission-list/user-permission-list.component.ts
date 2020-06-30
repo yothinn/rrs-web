@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionType, ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 
+import {MatDialog} from '@angular/material/dialog';
+import { UserPermissionDialogComponent } from '../user-permission-dialog/user-permission-dialog.component';
+
+
 
 @Component({
   selector: 'app-user-permission-list',
@@ -15,7 +19,9 @@ export class UserPermissionListComponent implements OnInit {
   rows: Array<any> = [];
   selected: Array<any> = [];
 
-  constructor() { }
+  constructor(
+    public dlg: MatDialog
+  ) { }
 
   ngOnInit() {
     // Mockup data
@@ -27,4 +33,14 @@ export class UserPermissionListComponent implements OnInit {
     ];
   }
 
+  onAddUser() {
+    const dlgRef = this.dlg.open(UserPermissionDialogComponent, {
+      width: '400px',
+      height: '600px'
+    });
+
+    dlgRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }

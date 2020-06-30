@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>เพิ่มผู้ใช้งาน</h2>
+<mat-dialog-content >
+    <form fxLayout="column">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>ชื่อ-นามสกุล</mat-label>
+            <input matInput name="name">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>ชื่อผู้ใช้</mat-label>
+            <input matInput name="user">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>รหัสผ่าน</mat-label>
+            <input matInput name="password">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>ตำแหน่ง</mat-label>
+            <input matInput name="position">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>สิทธิผู้ใช้งาน</mat-label>
+            <input matInput name="roles">
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button class="warn">ยกเลิก</button>
+    <button mat-raised-button class="accent">ตกลง</button>
+</mat-dialog-actions>
