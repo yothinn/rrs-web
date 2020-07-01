@@ -10,12 +10,15 @@ import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SuperadminService } from './superadmin.service';
 
 const routes = [
   {
       path     : 'dashboard',
       component: DashboardComponent,
 //        canActivate: [AuthenGuardService]
+      resolve: { items: SuperadminService },
+
   }
 ];
 

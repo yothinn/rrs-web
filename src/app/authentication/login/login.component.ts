@@ -68,8 +68,14 @@ export class LoginComponent implements OnInit {
         const data = this.loginForm.getRawValue();
         this.auth.login(data)
             .then((result) => {
-                console.log(result.user);
-                this.router.navigate(['']);
+                console.log(JSON.stringify(result.roles));
+
+                // Test : TODO move check superadmin to function
+                if (result.roles[0] === 'superadmin') {
+                    this.router.navigate(['dashboard']);
+                } else {
+                    this.router.navigate(['restuarant/dashboard'])
+                }
             })
             .catch((error) => {
                 console.log(error);

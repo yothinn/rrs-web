@@ -30,7 +30,7 @@ export class AuthenService {
   login(data: any): Promise<any> {
 
     return new Promise((resolve, reject) => {
-      this.http.post(`${environment.apiUrl}/api/auth/signin`, data).subscribe((res: any) => {
+      this.http.post(`${environment.authApiUrl}/api/auth/signin`, data).subscribe((res: any) => {
         window.localStorage.setItem(`token@${environment.appName}`, res.token);
         this.token = window.localStorage.getItem(`token@${environment.appName}`);
         this.user = this.token ? this.jwt.decodeToken(this.token) : null;
@@ -44,7 +44,7 @@ export class AuthenService {
   register(data: any): Promise<any> {
 
     return new Promise((resolve, reject) => {
-      this.http.post(`${environment.apiUrl}/api/auth/signup`, data).subscribe((res: any) => {
+      this.http.post(`${environment.authApiUrl}/api/auth/signup`, data).subscribe((res: any) => {
         window.localStorage.setItem(`token@${environment.appName}`, res.token);
         this.token = window.localStorage.getItem(`token@${environment.appName}`);
         this.user = this.token ? this.jwt.decodeToken(this.token) : null;

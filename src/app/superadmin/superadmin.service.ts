@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RestuarantService {
+export class SuperadminService {
 
   routeParams: any;
 
@@ -21,7 +21,7 @@ export class RestuarantService {
     this.routeParams = route.params;
 
     // Set nav bar to restuarant nav
-    this._fuseNavigationService.setCurrentNavigation(REST_NAVNAME);
+    this._fuseNavigationService.setCurrentNavigation(MAIN_NAVNAME);
 
     console.log("resolve with params : " + JSON.stringify(this.routeParams));
 

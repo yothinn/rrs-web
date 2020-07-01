@@ -18,6 +18,7 @@ import { AuthenGuardService } from 'app/authentication/authen-guard.service';
 import { RestuarantInfoComponent } from './restuarant-info/restuarant-info.component';
 import { RestuarantDashboardComponent } from './restuarant-dashboard/restuarant-dashboard.component';
 import { RestuarantHolidayComponent } from './restuarant-holiday/restuarant-holiday.component';
+import { RestuarantService } from './restuarant.service';
 
 const routes = [
   {
@@ -29,6 +30,7 @@ const routes = [
     path     : 'restuarant/dashboard',
     component: RestuarantDashboardComponent,
 //        canActivate: [AuthenGuardService]
+    resolve: { items: RestuarantService },
   },
   {
     path     : 'restuarant/holiday',
