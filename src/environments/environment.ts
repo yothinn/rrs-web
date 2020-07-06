@@ -7,7 +7,7 @@ export const environment = {
     hmr       : false,
     appName : 'rrs-web-dev',                // use in auth service
     authApiUrl: 'http://localhost:3000',    // use in auth service
-    apiUrl : 'http://localhost:3000'        // use in app service
+    apiUrl : 'http://localhost:3000',        // use in app service
 };
 
 /*
