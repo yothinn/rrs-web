@@ -7,18 +7,19 @@ import { environment } from 'environments/environment';
 import { catchError } from 'rxjs/operators';
 
 const URI_USER = environment.apiUrl + '/api/rrs/user';
-const URI_USERPERMISSION = environment.apiUrl + 'api/rrs/userpermission';
+const URI_USERPERMISSION = environment.apiUrl + '/api/rrs/userpermission';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserPermissionService {
 
+  permission: any = {};
+
   constructor(
     private auth: AuthenService,
     private http: HttpClient
   ) { 
-
   }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
@@ -29,40 +30,49 @@ export class UserPermissionService {
     //     return this.getTvdscustomerData(this.routeParams.id);
     //   }
     // } else {
-    //   return this.getTvdscustomerDataList(0, 10, '');
+       return this.getUserList();
     // }
   }
 
-  private handleError(error: HttpErrorResponse | any) {
-    //   if (error.error instanceof ErrorEvent) {
-    //     // A client-side or network error occurred. Handle it accordingly.
-    //     console.error('An error occurred:', error.error.message);
-    //   } else {
-    //     // The backend returned an unsuccessful response code.
-    //     // The response body may contain clues as to what went wrong,
-    //     console.error(
-    //       `Backend returned code ${error.status}, ` +
-    //       `body was: ${error.error}`);
-    //   }
-    //   // return an observable with a user-facing error message
-    //   return throwError(
-    //     'Something bad happened; please try again later.');
-    // };
+  /*
+   *
+   */
+  getUserList(): Observable<any> {
+    const header = {
+      headers: this.auth.getAuthorizationHeader(),
+    };
+
+    return this.http.get(URI_USER, header);
   }
 
    /*
    * get user permission by username
    * @param {string} username
    */
-  getUserPermission(username: string): Observable<any> {
+  getUserPermission(username: string): Promise<any> {
     const body = {
       username: username,
     };
 
-    return this.http.post(URI_USERPERMISSION, body,
-      { 
-        headers: this.auth.getAuthorizationHeader()
-      });
+    const header = {
+      headers: this.auth.getAuthorizationHeader(),
+    };
+
+    // console.log(username);
+    return new Promise((resolve, reject) => {
+      this.http.post(URI_USERPERMISSION, body, header)
+        .subscribe(
+          (res: any) => {
+            this.permission = res.data;
+            // console.log(this.permission);
+            resolve(this.permission);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+    
   }
 
   

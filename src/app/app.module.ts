@@ -30,7 +30,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { GlobalErrorHandler } from "./global-error-handler";
 import { ServerErrorInterceptor } from "./server-error.interceptor";
 
-import { SampleModule } from 'app/main/sample/sample.module';
+import { HomeModule } from 'app/main/home/home.module';
 import { SuperadminModule } from './superadmin/superadmin.module';
 import { UserPermissionModule } from './user-permission/user-permission.module';
 import { RestuarantModule } from './restuarant/restuarant.module';
@@ -43,7 +43,7 @@ const appRoutes: Routes = [
     },
     {
         path      : '**',
-        redirectTo: 'dashboard'
+        redirectTo: 'home'
     }
 ];
 
@@ -89,7 +89,7 @@ export const MY_FORMATS = {
         // App modules
         LayoutModule,
         NgxSpinnerModule,
-        SampleModule,
+        HomeModule,
         SuperadminModule,
         UserPermissionModule,
         RestuarantModule,

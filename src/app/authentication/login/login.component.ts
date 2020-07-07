@@ -5,6 +5,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthenService } from '../authen.service';
 import { Router } from '@angular/router';
+import { UserPermissionService } from 'app/user-permission/user-permission.service';
 
 @Component({
     selector: 'login',
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
         private router: Router,
-        private auth: AuthenService
+        private auth: AuthenService,
+        private permission: UserPermissionService
     ) {
         // Configure the layout
         this._fuseConfigService.config = {
@@ -68,14 +70,7 @@ export class LoginComponent implements OnInit {
         const data = this.loginForm.getRawValue();
         this.auth.login(data)
             .then((result) => {
-                console.log(JSON.stringify(result.roles));
-
-                // Test : TODO move check superadmin to function
-                if (result.roles[0] === 'superadmin') {
-                    this.router.navigate(['dashboard']);
-                } else {
-                    this.router.navigate(['restuarant/dashboard'])
-                }
+                this.router.navigate(['']);
             })
             .catch((error) => {
                 console.log(error);

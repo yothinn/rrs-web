@@ -25,7 +25,7 @@
 
         <ngx-datatable-column name="ชื่อ-นามสกุล">
           <ng-template ngx-datatable-cell-template let-row="row">
-            {{ row.firstName }}
+            {{ row.displayname }}
           </ng-template>
         </ngx-datatable-column>
 
@@ -35,9 +35,15 @@
           </ng-template>
         </ngx-datatable-column>
 
+        <ngx-datatable-column name="ตำแหน่ง">
+          <ng-template ngx-datatable-cell-template let-row="row">
+            {{ row.position }}
+          </ng-template>
+        </ngx-datatable-column>
+
         <ngx-datatable-column name="สิทธิ">
           <ng-template ngx-datatable-cell-template let-row="row">
-            {{ row.roles }}
+            {{ row.roles[0] }}
           </ng-template>
         </ngx-datatable-column>
 

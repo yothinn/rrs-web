@@ -4,20 +4,29 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
-import { SampleComponent } from './sample.component';
+import { HomeComponent } from './home.component';
 import { AuthenGuardService } from 'app/authentication/authen-guard.service';
+import { Role } from 'app/user-permission/role';
 
 const routes = [
     {
-        path     : 'sample',
-        component: SampleComponent,
-//        canActivate: [AuthenGuardService]
+        path     : 'home',
+        component: HomeComponent,
+        canActivate: [AuthenGuardService],
+        data: {
+            allowRoles: [
+                Role.Superadmin,
+                Role.Admin,
+                Role.Manager,
+                Role.Staff
+            ]
+        }
     }
 ];
 
 @NgModule({
     declarations: [
-        SampleComponent
+        HomeComponent
     ],
     imports     : [
         RouterModule.forChild(routes),
@@ -27,10 +36,10 @@ const routes = [
         FuseSharedModule
     ],
     exports     : [
-        SampleComponent
+        HomeComponent
     ]
 })
 
-export class SampleModule
+export class HomeModule
 {
 }

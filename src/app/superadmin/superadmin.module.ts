@@ -11,14 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SuperadminService } from './superadmin.service';
+import { Role } from 'app/user-permission/role';
 
 const routes = [
   {
       path     : 'dashboard',
       component: DashboardComponent,
-//        canActivate: [AuthenGuardService]
+      canActivate: [AuthenGuardService],
+      data : { allowRoles: [Role.Superadmin] },
       resolve: { items: SuperadminService },
-
   }
 ];
 

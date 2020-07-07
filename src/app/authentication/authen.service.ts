@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
+import { Role } from 'app/user-permission/role';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,6 @@ export class AuthenService {
     if (this.user && this.user != null) {
       this.onUserDataChanged.next(this.user);
     }
-
 
   }
 
@@ -73,4 +73,11 @@ export class AuthenService {
     return headers;
   }
 
+  getRole(): string {
+    return this.user.roles[0];
+  }
+
+  isSuperadmin(): boolean {
+    return this.user.roles.indexOf(Role.Superadmin) >= 0;
+  }
 }

@@ -19,6 +19,7 @@ import { RestuarantInfoComponent } from './restuarant-info/restuarant-info.compo
 import { RestuarantDashboardComponent } from './restuarant-dashboard/restuarant-dashboard.component';
 import { RestuarantHolidayComponent } from './restuarant-holiday/restuarant-holiday.component';
 import { RestuarantService } from './restuarant.service';
+import { Role } from 'app/user-permission/role';
 
 const routes = [
   {
@@ -29,7 +30,7 @@ const routes = [
   {
     path     : 'restuarant/dashboard',
     component: RestuarantDashboardComponent,
-//        canActivate: [AuthenGuardService]
+    canActivate: [AuthenGuardService],
     resolve: { items: RestuarantService },
   },
   {

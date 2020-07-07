@@ -12,18 +12,28 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule, 
-         MatInputModule,  } from "@angular/material";
+         MatInputModule,  } from '@angular/material';
 
 
+import { UserPermissionService } from './user-permission.service';
 
 import { UserPermissionListComponent } from './user-permission-list/user-permission-list.component';
 import { UserPermissionDialogComponent } from './user-permission-dialog/user-permission-dialog.component';
+import { Role } from './role';
 
 const routes = [
   {
       path     : 'permissions/list',
       component: UserPermissionListComponent,
-//        canActivate: [AuthenGuardService]
+      canActivate: [AuthenGuardService],
+      data: {
+        allowRoles: [
+          Role.Superadmin,
+          Role.Admin,
+          Role.Manager
+        ]
+      },
+      resolve: { items: UserPermissionService }
   }
 ];
 
