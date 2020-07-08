@@ -55,6 +55,17 @@ export class AuthenService {
 
   }
 
+  AddUser(data: any): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+      this.http.post(`${environment.authApiUrl}/api/auth/signup`, data).subscribe((res: any) => {
+        const user = res.token ? this.jwt.decodeToken(res.token) : null;
+        resolve(user);
+      }, reject);
+    });
+
+  }
+
   logout(): Promise<any> {
 
     return new Promise((resolve, reject) => {

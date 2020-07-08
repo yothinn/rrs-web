@@ -4,6 +4,7 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 import { restuarantNav, MAIN_NAVNAME, REST_NAVNAME } from 'app/navigation/navigation';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
+import { RestuarantService } from 'app/restuarant/restuarant.service';
 
 
 @Injectable({
@@ -15,6 +16,7 @@ export class SuperadminService {
 
   constructor(
     private _fuseNavigationService: FuseNavigationService,
+    private restuarant: RestuarantService
   ) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
@@ -23,7 +25,15 @@ export class SuperadminService {
     // Set nav bar to restuarant nav
     this._fuseNavigationService.setCurrentNavigation(MAIN_NAVNAME);
 
-    console.log("resolve with params : " + JSON.stringify(this.routeParams));
+     // this.routeParams = route.params;
+    // console.log("resolve with params : " + JSON.stringify(this.routeParams));
+    // if (this.routeParams.id) {
+    //   if (this.routeParams.id !== "new") {
+    //     return this.getTvdscustomerData(this.routeParams.id);
+    //   }
+    // } else {
+      return this.restuarant.getRestuarantList();
+      // }
 
   }
 }

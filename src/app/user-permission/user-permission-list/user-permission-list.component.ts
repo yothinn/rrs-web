@@ -7,6 +7,7 @@ import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserPermissionService } from '../user-permission.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthenService } from 'app/authentication/authen.service';
 
 
 
@@ -28,6 +29,7 @@ export class UserPermissionListComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private permission: UserPermissionService,
+    private auth: AuthenService,
     private spinner: NgxSpinnerService,
     public dlg: MatDialog
   ) { }
@@ -54,8 +56,50 @@ export class UserPermissionListComponent implements OnInit {
       height: '600px'
     });
 
-    dlgRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    dlgRef.afterClosed().subscribe(dlgData => {
+      // console.log(`Dialog result: ${JSON.stringify(dlgData)}`);
+
+      const authBody = {
+        firstname: dlgData.displayname,
+        lastname: '-',
+        email: `${dlgData.username}@email.com`,           
+        password: dlgData.password,
+        username: dlgData.username,
+        roles: [dlgData.role]
+      };
+
+      console.log(authBody);
+
+      const permissionBody = {
+        username: dlgData.username,
+        firstname: dlgData.displayname,
+        lastname: '-',
+        displayname: dlgData.displayname,
+        email: `${dlgData.username}@email.com`,
+        roles: [dlgData.role],
+        position: dlgData.position,
+        restuarantId: []
+      };
+      
+      // 1. register to auth service
+      this.auth.AddUser(authBody)
+        .then((authRes) => {
+          console.log(`add user result: ${JSON.stringify(authRes)}`);
+          // 2. create user to rrs service
+          this.permission.addUser(permissionBody)
+            .then((result) => {
+              // TODO : Alert create user success
+              console.log(`user permission result: ${JSON.stringify(result)}`);
+            })
+            .catch((err) => {
+              // TODO : Alert error to user
+              console.log(`User Permission error : ${err}`);
+            });
+        })
+        .catch(authErr => {
+            // TODO : Alert error to user
+            console.log(`auth error : ${authErr}`);
+        });
     });
   }
 }

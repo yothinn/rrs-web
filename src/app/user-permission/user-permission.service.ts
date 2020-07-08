@@ -35,7 +35,38 @@ export class UserPermissionService {
   }
 
   /*
-   *
+   * Add user in rrs user permission
+   * @param {json} body
+   * body format
+   * {
+   *    username: "",
+   *    firstname: "",
+   *    displayname: "",
+   *    email: "",
+   *    position: "",
+   *    roles: ["superadmin"],
+   *    restuarantId: ["id1", "id2"],
+   * }
+   */
+  addUser(body) {
+    const header = {
+      headers: this.auth.getAuthorizationHeader(),
+    };
+      
+    return new Promise((resolve, reject) => {
+      this.http.post(URI_USER, body, header)
+          .subscribe(
+            (res: any) => {
+              resolve(res.data);
+            },
+            (err) => {
+              reject(err);
+            });
+    });  
+  }
+  
+  /*
+   * get All user
    */
   getUserList(): Observable<any> {
     const header = {
@@ -74,6 +105,4 @@ export class UserPermissionService {
     });
     
   }
-
-  
 }
