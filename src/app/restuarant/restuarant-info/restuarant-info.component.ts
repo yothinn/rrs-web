@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
+
+import { RestuarantService } from '../restuarant.service';
 
 
 @Component({
@@ -13,15 +18,17 @@ export class RestuarantInfoComponent implements OnInit {
   imgLogo: string;
 
   constructor(
-    private _fb: FormBuilder,
+    private fb: FormBuilder,
+    private restService: RestuarantService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.restInfoForm = this._fb.group ({
+    this.restInfoForm = this.fb.group ({
       name: [''],
       displayName: [''],
       description: [''],
-      location: this._fb.group ({
+      location: this.fb.group ({
         addressLine: [''],
         addressStreet: [''],
         addressSubDistrict: [''],
@@ -37,7 +44,34 @@ export class RestuarantInfoComponent implements OnInit {
       activate: [true],
     });
 
+    // TODO : change up mockup logo
     this.imgLogo = '/assets/images/backgrounds/restLogo.jpg';
+  }
+
+  /*
+   * cancel when create restuarant
+   */
+  onCancel() {
+
+  }  
+
+  /*
+   * create restuarant
+   */
+  onCreate() {
+    // console.log(this.restInfoForm.getRawValue());
+    this.restService.createRestuarant(this.restInfoForm.getRawValue())
+        .subscribe(
+          result => {
+            // TODO: alert when create success
+            console.log(result);
+            this.router.navigate(['restuarant/dashboard', result.data._id]);
+          },
+          err => {
+            // TODO : Alert error
+            console.log(err);
+          }
+        )
   }
 
 }

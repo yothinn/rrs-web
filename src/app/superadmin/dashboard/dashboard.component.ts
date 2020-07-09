@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     // Temp mockup
-    this.restList = MOCKUP_RESTUARANT_DATA;
+    // this.restList = MOCKUP_RESTUARANT_DATA;
 
     this.restList = this.route.snapshot.data.items.data;
 
@@ -43,7 +43,8 @@ export class DashboardComponent implements OnInit {
    * 
   */
   onRestuarantView(rest) {
-
+    // console.log(rest);
+    this.router.navigate(['restuarant/dashboard', rest._id]);
   }
 
 }

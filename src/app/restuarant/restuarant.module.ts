@@ -23,20 +23,23 @@ import { Role } from 'app/user-permission/role';
 
 const routes = [
   {
-      path     : 'restuarant/new',
+      path     : 'restuarant/new',          // restuarant;id=new , restuarant;id=xxx
       component: RestuarantInfoComponent,
+//      resolve: { items: RestuarantService }
 //        canActivate: [AuthenGuardService]
   },
   {
-    path     : 'restuarant/dashboard',
+    path     : 'restuarant/dashboard/:id',      
     component: RestuarantDashboardComponent,
     canActivate: [AuthenGuardService],
     resolve: { items: RestuarantService },
   },
   {
-    path     : 'restuarant/holiday',
+    path     : 'restuarant/holiday/:id',        
     component: RestuarantHolidayComponent,
-//        canActivate: [AuthenGuardService]
+    canActivate: [AuthenGuardService],
+    resolve: { items: RestuarantService }
+    
   }
 ];
 

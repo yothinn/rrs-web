@@ -109,12 +109,12 @@
 
           <div class="example-full-width" fxLayout="row" fxFlex fxLayoutAlign="flex-end center">
             <div>
-              <button mat-raised-button color="warn" class="ml-16 mr-16">
+              <button mat-raised-button color="warn" class="ml-16 mr-16" (click)="onCancel()">
                 ยกเลิก
               </button>
             </div>
             <div>
-              <button mat-raised-button class="accent ml-16 mr-32">
+              <button mat-raised-button class="accent ml-16 mr-32" (click)="onCreate()">
                 บันทึก
               </button>
             </div>

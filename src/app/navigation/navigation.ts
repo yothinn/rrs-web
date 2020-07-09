@@ -64,6 +64,12 @@ export const navigation: FuseNavigation[] = [
 ];
 
 export const REST_NAVNAME = 'restuarantNav';
+export const REST_DASHBOARD_URL = '/restuarant/dashboard';
+export const REST_INFO_URL = '/restuarant/info';
+export const REST_USER_URL = '/restuarant/user';
+export const REST_MEAL_URL = '/restuarant/meal';
+export const REST_HOLIDAY_URL = '/restuarant/holiday';
+
 export const restuarantNav: FuseNavigation[] = [
     {
         id       : 'restDashboard',
@@ -71,7 +77,7 @@ export const restuarantNav: FuseNavigation[] = [
         //translate: 'NAV.APPLICATIONS',
         icon     : 'email',
         type     : 'item',
-        url      : '/restuarant/dashboard',           // /restuarant/dashboard?rest=id
+        url      : REST_DASHBOARD_URL,           // /restuarant/dashboard;id=xxx
     },
     {
         id       : 'restInfo',
@@ -79,7 +85,7 @@ export const restuarantNav: FuseNavigation[] = [
         //translate: 'NAV.APPLICATIONS',
         icon     : 'email',
         type     : 'item',
-        url      : '/restuarant/info',               // /restuarant/desp?rest=id
+        url      : REST_INFO_URL,               // /restuarant/info;id=xxx
     },
     {
         id       : 'mealGroup',
@@ -94,7 +100,7 @@ export const restuarantNav: FuseNavigation[] = [
                 //translate: 'NAV.SAMPLE.TITLE',
                 type     : 'item',
                 //icon     : 'email',
-                url      : '/restuarant/meal',      // /restuarant/meal?rest=id&meal=new
+                url      : REST_MEAL_URL,      // /restuarant/meal;id=xxx;meal=xxx
             }
         ]
     },
@@ -104,7 +110,7 @@ export const restuarantNav: FuseNavigation[] = [
         //translate: 'NAV.APPLICATIONS',
         icon     : 'email',
         type     : 'item',
-        url      : '/restuarant/user',               // /restuarant/user?rest=id
+        url      : REST_USER_URL,               // /restuarant/user;id=xxx
     },
     {
         id       : 'restHoliday',
@@ -112,7 +118,15 @@ export const restuarantNav: FuseNavigation[] = [
         //translate: 'NAV.APPLICATIONS',
         icon     : 'email',
         type     : 'item',
-        url      : '/restuarant/holiday',               // /restuarant/holiday?rest=id
+        url      : REST_HOLIDAY_URL,               // /restuarant/holiday;id=xxx
+    },
+    {
+        id       : 'backMain',
+        title    : 'กลับสู่หน้าหลัก',
+        //translate: 'NAV.APPLICATIONS',
+        icon     : 'email',
+        type     : 'item',
+        url      : '/dashboard',               
     },
 ];
 

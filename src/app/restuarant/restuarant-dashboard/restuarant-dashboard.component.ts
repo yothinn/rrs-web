@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-restuarant-dashboard',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestuarantDashboardComponent implements OnInit {
 
-  constructor() { }
+  restInfo: any;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { 
+
+  }
 
   ngOnInit() {
+    this.restInfo = this.route.snapshot.data.items.data;
+    console.log(this.restInfo);
   }
 
 }

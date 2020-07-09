@@ -30,6 +30,7 @@ export class UserPermissionService {
     //     return this.getTvdscustomerData(this.routeParams.id);
     //   }
     // } else {
+      // TODO : if network loss can't get user list , what happening
        return this.getUserList();
     // }
   }
@@ -102,7 +103,15 @@ export class UserPermissionService {
             reject(err);
           }
         );
-    });
-    
+    });    
+  }
+
+  /*
+   * Get Restuarant Permission for this user
+   * @return : id string of restuarant
+   * if is superadmin it is empty
+   */
+  getRestuarantPermission(): any[] {
+    return this.permission ? this.permission.restuarantId : [];
   }
 }

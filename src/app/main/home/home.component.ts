@@ -40,11 +40,16 @@ export class HomeComponent implements OnInit
         this.permission.getUserPermission(this.auth.user.username)
             .then((res) => {
                 // console.log(JSON.stringify(per));
+                
 
                 if (this.auth.isSuperadmin()) {
                     this.router.navigate(['dashboard']);
                 } else {
-                    this.router.navigate(['restuarant/dashboard']);
+                    // TODO: if restuarant > 1 , howto manager
+                    const restPermission = this.permission.getRestuarantPermission();
+                    const restId = restPermission.length > 0 ? restPermission[0] : '';
+
+                    this.router.navigate(['restuarant/dashboard', restId]);
                 }        
             })
             .catch((error) => {
