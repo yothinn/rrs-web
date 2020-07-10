@@ -77,7 +77,7 @@ export const restuarantNav: FuseNavigation[] = [
         //translate: 'NAV.APPLICATIONS',
         icon     : 'email',
         type     : 'item',
-        url      : REST_DASHBOARD_URL,           // /restuarant/dashboard;id=xxx
+        url      : REST_DASHBOARD_URL,           // /restuarant/dashboard/:id
     },
     {
         id       : 'restInfo',
@@ -85,7 +85,7 @@ export const restuarantNav: FuseNavigation[] = [
         //translate: 'NAV.APPLICATIONS',
         icon     : 'email',
         type     : 'item',
-        url      : REST_INFO_URL,               // /restuarant/info;id=xxx
+        url      : REST_INFO_URL,               // /restuarant/info/:id
     },
     {
         id       : 'mealGroup',
@@ -100,7 +100,7 @@ export const restuarantNav: FuseNavigation[] = [
                 //translate: 'NAV.SAMPLE.TITLE',
                 type     : 'item',
                 //icon     : 'email',
-                url      : REST_MEAL_URL,      // /restuarant/meal;id=xxx;meal=xxx
+                url      : REST_MEAL_URL,      // /restuarant/meal/:restId/new
             }
         ]
     },
@@ -110,7 +110,7 @@ export const restuarantNav: FuseNavigation[] = [
         //translate: 'NAV.APPLICATIONS',
         icon     : 'email',
         type     : 'item',
-        url      : REST_USER_URL,               // /restuarant/user;id=xxx
+        url      : REST_USER_URL,               // /restuarant/user/:id
     },
     {
         id       : 'restHoliday',
@@ -118,7 +118,7 @@ export const restuarantNav: FuseNavigation[] = [
         //translate: 'NAV.APPLICATIONS',
         icon     : 'email',
         type     : 'item',
-        url      : REST_HOLIDAY_URL,               // /restuarant/holiday;id=xxx
+        url      : REST_HOLIDAY_URL,               // /restuarant/holiday/:id
     },
     {
         id       : 'backMain',
@@ -127,18 +127,5 @@ export const restuarantNav: FuseNavigation[] = [
         icon     : 'email',
         type     : 'item',
         url      : '/dashboard',               
-    },
-];
-
-
-// For add to restuarant nav when super admin login
-export const backMainNav: FuseNavigation[] = [
-    {
-        id       : 'backMain',
-        title    : 'กลับสู่หน้าหลัก',
-        //translate: 'NAV.APPLICATIONS',
-        icon     : 'email',
-        type     : 'item',
-        url      : '/main',               
     },
 ];

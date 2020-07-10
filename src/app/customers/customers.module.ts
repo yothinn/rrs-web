@@ -7,12 +7,17 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { AuthenGuardService } from 'app/authentication/authen-guard.service';
 
 import { CustomersListComponent } from './customers-list/customers-list.component';
+import { Role } from 'app/user-permission/role';
+
 
 const routes = [
   {
       path     : 'customers/list',
       component: CustomersListComponent,
-//        canActivate: [AuthenGuardService]
+      canActivate: [AuthenGuardService],
+      data: {
+        allowRoles: [Role.Superadmin]
+      }
   }
 ];
 

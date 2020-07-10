@@ -10,9 +10,9 @@ import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular
 @Injectable({
   providedIn: 'root'
 })
-export class CustomersService {
-  routeParams: any;
+export class MealService {
 
+  routeParams: any;
 
   constructor(
     private _fuseNavigationService: FuseNavigationService,

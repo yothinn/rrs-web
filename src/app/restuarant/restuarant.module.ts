@@ -13,6 +13,9 @@ import { MatCardModule } from '@angular/material/card';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { AuthenGuardService } from 'app/authentication/authen-guard.service';
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 import { RestuarantInfoComponent } from './restuarant-info/restuarant-info.component';
 import { RestuarantDashboardComponent } from './restuarant-dashboard/restuarant-dashboard.component';
 import { RestuarantHolidayComponent } from './restuarant-holiday/restuarant-holiday.component';
@@ -61,6 +64,11 @@ const routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
 
     TranslateModule,
   

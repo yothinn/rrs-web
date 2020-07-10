@@ -6,6 +6,7 @@ import { restuarantNav,
           REST_NAVNAME,
           REST_DASHBOARD_URL,
           REST_INFO_URL,
+          REST_MEAL_URL,
           REST_USER_URL,
           REST_HOLIDAY_URL } from 'app/navigation/navigation';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
@@ -136,6 +137,9 @@ export class RestuarantService {
     
     this._fuseNavigationService.updateNavigationItem('restInfo', 
           { url: `${REST_INFO_URL}/${this.restId}`});
+
+    this._fuseNavigationService.updateNavigationItem('addMeal', 
+          { url: `${REST_MEAL_URL}/${this.restId}/new`});
     
     this._fuseNavigationService.updateNavigationItem('restUser', 
           { 

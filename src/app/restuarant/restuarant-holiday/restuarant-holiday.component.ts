@@ -9,6 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RestuarantHolidayComponent implements OnInit {
 
   restData: any;
+  
+  viewDate: Date = new Date();
+  events = [];
 
   constructor(
     private router: Router,

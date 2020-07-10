@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./restuarant-dashboard.component.scss']
 })
 export class RestuarantDashboardComponent implements OnInit {
+  
 
   restData: any;
   emptyMeal: boolean;
