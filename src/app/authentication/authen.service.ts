@@ -91,4 +91,8 @@ export class AuthenService {
   isSuperadmin(): boolean {
     return this.user.roles.indexOf(Role.Superadmin) >= 0;
   }
+
+  isStaff(): boolean {
+    return this.user.roles.indexOf(Role.Staff) >= 0;
+  }
 }

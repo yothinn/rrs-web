@@ -1,3 +1,37 @@
-<p>
-  restuarant-dashboard works!
-</p>
+<div class="page-layout carded  fullwidth inner-scroll">
+  <!-- HEADER -->
+  <div class="header accent"  fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <span *ngIf="!isCreate" class="logo-text h1 pl-32 pt-16 pb-16"> 
+      {{ restData.name }}
+    </span>
+  </div>
+
+  <!-- show text when empty meal-->
+  <div id="emptyMeal" *ngIf="emptyMeal">
+    <h1>
+      คุณยังไม่มีรายการมื้ออาหาร กรุณาเพิ่มมื้ออาหาร ที่เมนูเพิ่มมื้ออาหาร
+    </h1>
+  </div>
+
+  <div class="content">
+    <div *ngIf="!emptyMeal" class="mealList" fxLayout="row wrap">
+      <mat-card *ngFor="let meal of mealList" class="mealCard">
+          <mat-card-header>
+            <mat-card-title>
+              {{ meal.name }}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button (click)="onMealView(meal)">View</button>
+          </mat-card-actions>
+        </mat-card>
+    </div>
+  </div>
+
+</div>
+
+  
+  
+ 

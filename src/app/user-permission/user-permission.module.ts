@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule, 
          MatInputModule,  } from '@angular/material';
@@ -28,6 +29,7 @@ const routes = [
       component: UserPermissionListComponent,
       canActivate: [AuthenGuardService],
       data: {
+        isRestuarant: false,
         allowRoles: [
           Role.Superadmin,
           Role.Admin,
@@ -35,7 +37,21 @@ const routes = [
         ]
       },
       resolve: { items: UserPermissionService }
-  }
+  },
+  {
+    path     : 'restuarant/user/:id',
+    component: UserPermissionListComponent,
+    canActivate: [AuthenGuardService],
+    data: {
+      isRestuarant: true,
+      allowRoles: [
+        Role.Superadmin,
+        Role.Admin,
+        Role.Manager
+      ]
+    },
+    resolve: { items: UserPermissionService }
+}
 ];
 
 @NgModule({
@@ -59,6 +75,7 @@ const routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatCheckboxModule,
   ],
   exports: [
     UserPermissionListComponent

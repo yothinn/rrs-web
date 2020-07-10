@@ -8,7 +8,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class RestuarantDashboardComponent implements OnInit {
 
-  restInfo: any;
+  restData: any;
+  emptyMeal: boolean;
+  mealList: any;
 
   constructor(
     private router: Router,
@@ -18,8 +20,15 @@ export class RestuarantDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.restInfo = this.route.snapshot.data.items.data;
-    console.log(this.restInfo);
+    this.restData = this.route.snapshot.data.items.data;
+    // console.log(this.restInfo);
+
+    this.emptyMeal = true;
+
+  }
+
+  onMealView(meal) {
+    
   }
 
 }

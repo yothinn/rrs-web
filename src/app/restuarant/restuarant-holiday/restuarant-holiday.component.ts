@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-restuarant-holiday',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestuarantHolidayComponent implements OnInit {
 
-  constructor() { }
+  restData: any;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { 
+
+  }
 
   ngOnInit() {
+    this.restData = this.route.snapshot.data.items.data;
   }
+
 
 }

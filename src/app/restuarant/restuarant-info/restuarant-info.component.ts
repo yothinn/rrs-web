@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 import { RestuarantService } from '../restuarant.service';
@@ -14,6 +14,12 @@ import { RestuarantService } from '../restuarant.service';
 })
 export class RestuarantInfoComponent implements OnInit {
 
+  POSTCODE_PATTERN = /^[0-9]{5,5}$/;
+  MOBILE_PATTERN = /^[0-9]{10,10}$/;
+
+  isCreate: boolean;
+  isReadOnly:boolean;
+  restData: any;
   restInfoForm: FormGroup;
   imgLogo: string;
 
@@ -21,38 +27,83 @@ export class RestuarantInfoComponent implements OnInit {
     private fb: FormBuilder,
     private restService: RestuarantService,
     private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    // when new isCreate is true
+    this.isCreate = this.route.snapshot.data.isCreate;
+    this.isReadOnly = !this.isCreate;
+
+    if (!this.isCreate) {
+      this.restData = this.route.snapshot.data.items.data;
+      console.log(this.restData);
+      // TODO : กรณี restData ไม่สามารถุโหลดข้อมูลได้ จะทำยังไง
+    }
+       
+    // Initial form data except logo
+    this.initForm();
+    
+    // TODO : change up mockup logo
+    this.imgLogo = '/assets/images/backgrounds/restLogo.jpg';
+  
+  }
+
+  private initForm() {
+    if (this.isCreate) {
+      // Init empty data when create 
+      this.restData = {
+        name: '',
+        displayName: '',
+        description: '',
+        location: {
+          addressLine1: '',
+          addressStreet: '',
+          addressSubDistrict: '',
+          addressDistrict: '',
+          addressProvince: '',
+          addressPostalCode: '',
+          latitude: '',
+          logitude: '',
+        },
+        maxGuestCapacity: '',
+        mobileNo: '',
+        otherNo: '',
+        activate: true,
+      }
+    }
+    // assign value to form
     this.restInfoForm = this.fb.group ({
-      name: [''],
-      displayName: [''],
-      description: [''],
+      // TODO: check validate
+      name: [this.restData.name, Validators.required],
+      displayName: [this.restData.displayName, Validators.required],
+      description: [this.restData.description, Validators.required],
       location: this.fb.group ({
-        addressLine: [''],
-        addressStreet: [''],
-        addressSubDistrict: [''],
-        addressDistrict: [''],
-        addressProvince: [''],
-        addressPostalCode: [''],
+        addressLine1: [this.restData.location.addressLine1],
+        addressStreet: [this.restData.location.addressStreet],
+        addressSubDistrict: [this.restData.location.addressSubDistrict],
+        addressDistrict: [this.restData.location.addressDistrict],
+        addressProvince: [this.restData.location.addressProvince],
+        addressPostalCode: [this.restData.location.addressPostalCode],
         latitude: [''],
         logitude: ['']
       }),
-      maxGuestCapacity: [''],
-      mobileNo: [''],
-      otherNo: [''],
-      activate: [true],
+      maxGuestCapacity: [this.restData.maxGuestCapacity],
+      mobileNo: [this.restData.mobileNo, [Validators.required, Validators.pattern(this.MOBILE_PATTERN)] ],
+      otherNo: [this.restData.otherNo],
+      activate: [this.restData.activate],
     });
 
-    // TODO : change up mockup logo
-    this.imgLogo = '/assets/images/backgrounds/restLogo.jpg';
+    if (this.isReadOnly) {
+      this.restInfoForm.controls['activate'].disable();
+    }
   }
 
   /*
    * cancel when create restuarant
    */
   onCancel() {
-
+    // this.restInfoForm.enable();
   }  
 
   /*
@@ -72,6 +123,25 @@ export class RestuarantInfoComponent implements OnInit {
             console.log(err);
           }
         )
+  }
+
+  onEdit() {
+    this.isReadOnly = false;
+    this.restInfoForm.controls['activate'].enable();
+  }
+
+  onUpdateCancel() {
+    // TODO : alert cancel update data
+    // and re-old data
+    this.isReadOnly = true;
+    this.restInfoForm.controls['activate'].disable();
+  }
+
+  onUpdateConfirm() {
+    // update data
+    // and change data that update
+    this.isReadOnly = true;
+    this.restInfoForm.controls['activate'].disable();
   }
 
 }

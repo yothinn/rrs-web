@@ -1,0 +1,21 @@
+@import "src/@fuse/scss/fuse";
+
+#emptyMeal {
+    position: relative;
+    left: 48px;
+    top: 48px;
+}
+
+.content {
+    overflow-y: auto;
+}
+
+.mealList {
+    //overflow-y: auto;
+}
+  
+.mealCard {
+    width: 250px;
+    height: 250px;
+    margin: 15px 15px 15px 15px;
+}

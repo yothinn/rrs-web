@@ -39,31 +39,33 @@ export class RestuarantService {
     this.routeParams = route.params;
     
     this.restId = this.routeParams.id;
-
+      
     // console.log("resolve with params : " + JSON.stringify(this.routeParams));
     // console.log(this.restId);
 
     // initial nav bar (necessary use restuarant id)
     this.initRestuarantNav();
 
+    return this.getRestuarantInfo(this.restId);
+    
+
     // แยกแต่่ละ route ด้วย route.url
-    const url = `/${route.url[0].path}/${route.url[1].path}`;
+    // const url = `/${route.url[0].path}/${route.url[1].path}`;
     // console.log(route);
     // console.log(url);
 
-    // Pre load data each routh
-    switch (url) {
-      case REST_DASHBOARD_URL:
-        // TODO: change later : get mealinfo
-        return this.getRestuarantInfo(this.restId);
-      case REST_INFO_URL:
-        return this.getRestuarantInfo(this.restId);
-      case REST_USER_URL:
-        return;
-      case REST_HOLIDAY_URL:
-        return;
-    }
-    
+    // // Pre load data each routh
+    // switch (url) {
+    //   case REST_DASHBOARD_URL:
+    //     // TODO: change later : get mealinfo
+    //     return this.getRestuarantInfo(this.restId);
+    //   case REST_INFO_URL:
+    //     return this.getRestuarantInfo(this.restId);
+    //   case REST_USER_URL:
+    //     return;
+    //   case REST_HOLIDAY_URL:
+    //     return;
+    // }
   }
 
   /*
@@ -75,6 +77,18 @@ export class RestuarantService {
     };
 
     return this.http.get(URI_RESTUARANT, header);
+  }
+
+   /*
+  * get restuarant info by object id
+  * @param {string} id : object id of restuarant
+  */
+  getRestuarantInfo(id): Observable<any> {
+    const header = {
+      headers: this.auth.getAuthorizationHeader(),
+    };
+
+    return this.http.get(`${URI_RESTUARANT}/${id}`, header);
   }
 
   /*
@@ -90,21 +104,22 @@ export class RestuarantService {
   }
 
   /*
-  * get restuarant info by object id
-  * @param {string} id : object id of restuarant
-  */
-  getRestuarantInfo(id): Observable<any> {
+   * update restuarant info
+   * @param {string} id : object id
+   * @param {json data} restData : restuarant data that upedate
+   */
+  updateRestuarant(id, restData): Observable<any> {
     const header = {
       headers: this.auth.getAuthorizationHeader(),
     };
 
-    return this.http.get(`${URI_RESTUARANT}/${id}`, header);
+    return this.http.put(`${URI_RESTUARANT}/${id}`, restData, header);
   }
 
   /*
    * when route to restuarant , initial restuarant nav bar
    */
-  initRestuarantNav() {
+  private initRestuarantNav() {
    
     // current nav bar is restuarant , not initial
     if (this._fuseNavigationService.getCurrentNavigation() === REST_NAVNAME) {
@@ -123,7 +138,10 @@ export class RestuarantService {
           { url: `${REST_INFO_URL}/${this.restId}`});
     
     this._fuseNavigationService.updateNavigationItem('restUser', 
-          { url: `${REST_USER_URL}/${this.restId}`});
+          { 
+            url: `${REST_USER_URL}/${this.restId}`,
+            hidden: this.auth.isStaff()
+          });
 
     this._fuseNavigationService.updateNavigationItem('restHoliday', 
           { url: `${REST_HOLIDAY_URL}/${this.restId}`});

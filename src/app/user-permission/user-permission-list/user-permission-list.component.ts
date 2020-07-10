@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserPermissionService } from '../user-permission.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthenService } from 'app/authentication/authen.service';
+import { RestuarantService } from 'app/restuarant/restuarant.service';
 
 
 
@@ -24,12 +25,16 @@ export class UserPermissionListComponent implements OnInit {
   rows: Array<any> = [];
   selected: Array<any> = [];
 
+  restId: any;
+  isRestuarant: boolean;
+
   constructor(
     private _fuseTranslationLoaderService: FuseTranslationLoaderService,
     private router: Router,
     private route: ActivatedRoute,
     private permission: UserPermissionService,
     private auth: AuthenService,
+    private restService: RestuarantService,
     private spinner: NgxSpinnerService,
     public dlg: MatDialog
   ) { }
@@ -43,10 +48,15 @@ export class UserPermissionListComponent implements OnInit {
     //   { firstName: "Test2", lastName: "Test2", username: "Test2", roles: "staff"},
     // ];
 
-    this.spinner.hide();
+    // this.spinner.hide();
+    // when path from restuarant/user/:id , isResturant is true
+    this.isRestuarant = this.route.snapshot.data.isRestuarant;
     this.rows = this.route.snapshot.data.items.data;
+
+    this.restId = this.isRestuarant ? this.route.snapshot.params.id : '';
     // this.temp = this.route.snapshot.data.items.data;
     // console.log(this.rows);
+    console.log(`restuarant id: ${this.restId}`);
 
   }
 
@@ -68,7 +78,7 @@ export class UserPermissionListComponent implements OnInit {
         roles: [dlgData.role]
       };
 
-      console.log(authBody);
+      // console.log(authBody);
 
       const permissionBody = {
         username: dlgData.username,
@@ -80,6 +90,7 @@ export class UserPermissionListComponent implements OnInit {
         position: dlgData.position,
         restuarantId: []
       };
+
       
       // 1. register to auth service
       this.auth.AddUser(authBody)
@@ -101,5 +112,9 @@ export class UserPermissionListComponent implements OnInit {
             console.log(`auth error : ${authErr}`);
         });
     });
+  }
+
+  onChangeUserPermission(user) {
+    console.log(user);
   }
 }

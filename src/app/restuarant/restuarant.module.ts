@@ -8,9 +8,7 @@ import { MatFormFieldModule,
          MatInputModule,  } from "@angular/material";
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
-
-
+import { MatCardModule } from '@angular/material/card';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { AuthenGuardService } from 'app/authentication/authen-guard.service';
@@ -23,10 +21,22 @@ import { Role } from 'app/user-permission/role';
 
 const routes = [
   {
-      path     : 'restuarant/new',          // restuarant;id=new , restuarant;id=xxx
+      path     : 'restuarant/new',          
       component: RestuarantInfoComponent,
-//      resolve: { items: RestuarantService }
-//        canActivate: [AuthenGuardService]
+      canActivate: [AuthenGuardService],  
+      data: {
+        isCreate: true,
+        allowRoles: [Role.Superadmin]
+      }
+  },
+  {
+    path     : 'restuarant/info/:id',          
+    component: RestuarantInfoComponent,
+    canActivate: [AuthenGuardService],  
+    data: {
+      isCreate: false
+    },
+    resolve: { items: RestuarantService }
   },
   {
     path     : 'restuarant/dashboard/:id',      
@@ -39,7 +49,6 @@ const routes = [
     component: RestuarantHolidayComponent,
     canActivate: [AuthenGuardService],
     resolve: { items: RestuarantService }
-    
   }
 ];
 
@@ -62,7 +71,8 @@ const routes = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatCardModule,
   ],
   exports: [
     RestuarantInfoComponent,
