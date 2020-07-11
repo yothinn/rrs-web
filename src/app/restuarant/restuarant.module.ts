@@ -58,11 +58,11 @@ const routes = [
   {
     path     : 'restuarant/meal/:id/new',          
     component: RestuarantMealComponent,
-      canActivate: [AuthenGuardService],  
-      data: {
-        isCreate: true,
-      },
-      resovle: { items: RestuarantService }
+    canActivate: [AuthenGuardService],  
+    data: {
+      isCreate: true,
+    },
+    resolve: { items: RestuarantService }
   },
   {
     path     : 'restuarant/meal/:id/:mealId',          
@@ -71,7 +71,7 @@ const routes = [
     data: {
       isCreate: false,
     },
-    resovle: { items: RestuarantService }
+    resolve: { items: RestuarantService }
   },
   {
     path     : 'restuarant/user/:id',

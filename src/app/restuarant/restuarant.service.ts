@@ -42,7 +42,7 @@ export class RestuarantService {
     this.restId = this.routeParams.id;
       
     // console.log("resolve with params : " + JSON.stringify(this.routeParams));
-    // console.log(this.restId);
+    console.log(this.restId);
 
     // initial nav bar (necessary use restuarant id)
     this.initRestuarantNav();
