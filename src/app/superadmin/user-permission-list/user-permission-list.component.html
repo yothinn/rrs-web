@@ -22,11 +22,11 @@
         [selectionType]="SelectionType.single"
         [rows]="rows" 
       >
-        <ngx-datatable-column *ngIf="isRestuarant">
+        <!-- <ngx-datatable-column *ngIf="isRestuarant">
           <ng-template ngx-datatable-cell-template let-row="row">
             <mat-checkbox [checked]="true" (change)="onChangeUserPermission(row)"></mat-checkbox>
           </ng-template>
-        </ngx-datatable-column>
+        </ngx-datatable-column> -->
 
         <ngx-datatable-column name="ชื่อ-นามสกุล">
           <ng-template ngx-datatable-cell-template let-row="row">
@@ -52,7 +52,7 @@
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column *ngIf="!isRestuarant">
+        <ngx-datatable-column>
           <ng-template ngx-datatable-cell-template let-row="row">
             <button class="mat-icon-button" aria-label="More" [matMenuTriggerFor]="moreMenu"
             (click)="$event.stopPropagation()">

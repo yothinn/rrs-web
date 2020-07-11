@@ -32,10 +32,7 @@ import { ServerErrorInterceptor } from "./server-error.interceptor";
 
 import { HomeModule } from 'app/main/home/home.module';
 import { SuperadminModule } from './superadmin/superadmin.module';
-import { UserPermissionModule } from './user-permission/user-permission.module';
 import { RestuarantModule } from './restuarant/restuarant.module';
-import { CustomersModule } from './customers/customers.module';
-import { MealModule } from './meal/meal.module';
 
 const appRoutes: Routes = [
     {
@@ -92,10 +89,7 @@ export const MY_FORMATS = {
         NgxSpinnerModule,
         HomeModule,
         SuperadminModule,
-        UserPermissionModule,
         RestuarantModule,
-        MealModule,
-        CustomersModule,
     ],
     bootstrap   : [
         AppComponent

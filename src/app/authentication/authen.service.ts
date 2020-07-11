@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
-import { Role } from 'app/user-permission/role';
+import { Role } from 'app/type/role';
 
 @Injectable({
   providedIn: 'root'

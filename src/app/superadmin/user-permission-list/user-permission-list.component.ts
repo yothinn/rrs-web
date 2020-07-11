@@ -25,9 +25,6 @@ export class UserPermissionListComponent implements OnInit {
   rows: Array<any> = [];
   selected: Array<any> = [];
 
-  restId: any;
-  isRestuarant: boolean;
-
   constructor(
     private _fuseTranslationLoaderService: FuseTranslationLoaderService,
     private router: Router,
@@ -49,14 +46,10 @@ export class UserPermissionListComponent implements OnInit {
     // ];
 
     // this.spinner.hide();
-    // when path from restuarant/user/:id , isResturant is true
-    this.isRestuarant = this.route.snapshot.data.isRestuarant;
     this.rows = this.route.snapshot.data.items.data;
 
-    this.restId = this.isRestuarant ? this.route.snapshot.params.id : '';
     // this.temp = this.route.snapshot.data.items.data;
     // console.log(this.rows);
-    console.log(`restuarant id: ${this.restId}`);
 
   }
 
@@ -114,7 +107,7 @@ export class UserPermissionListComponent implements OnInit {
     });
   }
 
-  onChangeUserPermission(user) {
-    console.log(user);
-  }
+  // onChangeUserPermission(user) {
+  //   console.log(user);
+  // }
 }

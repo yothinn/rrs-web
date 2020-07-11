@@ -29,5 +29,5 @@ export class MealService {
 
       console.log("resolve with params : " + JSON.stringify(this.routeParams));
   }
-
 }
+

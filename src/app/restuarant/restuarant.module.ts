@@ -20,7 +20,9 @@ import { RestuarantInfoComponent } from './restuarant-info/restuarant-info.compo
 import { RestuarantDashboardComponent } from './restuarant-dashboard/restuarant-dashboard.component';
 import { RestuarantHolidayComponent } from './restuarant-holiday/restuarant-holiday.component';
 import { RestuarantService } from './restuarant.service';
-import { Role } from 'app/user-permission/role';
+import { Role } from 'app/type/role';
+import { RestuarantMealComponent } from './restuarant-meal/restuarant-meal.component';
+import { RestuarantUserComponent } from './restuarant-user/restuarant-user.component';
 
 const routes = [
   {
@@ -52,6 +54,37 @@ const routes = [
     component: RestuarantHolidayComponent,
     canActivate: [AuthenGuardService],
     resolve: { items: RestuarantService }
+  },
+  {
+    path     : 'restuarant/meal/:id/new',          
+    component: RestuarantMealComponent,
+      canActivate: [AuthenGuardService],  
+      data: {
+        isCreate: true,
+      },
+      resovle: { items: RestuarantService }
+  },
+  {
+    path     : 'restuarant/meal/:id/:mealId',          
+    component: RestuarantMealComponent,
+    canActivate: [AuthenGuardService],  
+    data: {
+      isCreate: false,
+    },
+    resovle: { items: RestuarantService }
+  },
+  {
+    path     : 'restuarant/user/:id',
+    component: RestuarantUserComponent,
+    canActivate: [AuthenGuardService],
+    data: {
+      allowRoles: [
+        Role.Superadmin,
+        Role.Admin,
+        Role.Manager
+      ]
+    },
+    resolve: { items: RestuarantService }
   }
 ];
 
@@ -59,7 +92,9 @@ const routes = [
   declarations: [
     RestuarantInfoComponent,
     RestuarantDashboardComponent,
-    RestuarantHolidayComponent
+    RestuarantHolidayComponent,
+    RestuarantMealComponent,
+    RestuarantUserComponent
   ],
   imports: [
     CommonModule,
@@ -85,7 +120,9 @@ const routes = [
   exports: [
     RestuarantInfoComponent,
     RestuarantDashboardComponent,
-    RestuarantHolidayComponent
+    RestuarantHolidayComponent,
+    RestuarantMealComponent,
+    RestuarantUserComponent,
   ]
 })
 export class RestuarantModule { }

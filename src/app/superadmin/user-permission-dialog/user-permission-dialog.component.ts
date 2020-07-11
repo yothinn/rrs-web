@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { rolesList, positionList } from '../role';
-
+import { rolesList, positionList } from 'app/type/role';
 
 @Component({
   selector: 'app-user-permission-dialog',

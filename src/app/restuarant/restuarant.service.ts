@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 import { AuthenService } from 'app/authentication/authen.service';
 import { environment } from 'environments/environment';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { UserPermissionService } from 'app/user-permission/user-permission.service';
+import { UserPermissionService } from 'app/superadmin/user-permission.service';
 
 
 const URI_RESTUARANT = environment.apiUrl + '/api/restuarants';

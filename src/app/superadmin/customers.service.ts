@@ -11,6 +11,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular
   providedIn: 'root'
 })
 export class CustomersService {
+
   routeParams: any;
 
 
@@ -18,9 +19,9 @@ export class CustomersService {
     private _fuseNavigationService: FuseNavigationService,
     private auth: AuthenService,
     private http: HttpClient,
-  ) { 
+  ) {
 
-  }
+   }
 
   resolve(route: ActivatedRouteSnapshot,  
     state: RouterStateSnapshot): Observable<any> | Promise<any> | any {

@@ -9,7 +9,7 @@ import { locale as english } from './i18n/en';
 import { locale as thai } from './i18n/th';
 import { Router } from '@angular/router';
 
-import { UserPermissionService } from 'app/user-permission/user-permission.service';
+import { UserPermissionService } from 'app/superadmin/user-permission.service';
 import { AuthenService } from 'app/authentication/authen.service';
 
 @Component({

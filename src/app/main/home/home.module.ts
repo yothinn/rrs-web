@@ -6,7 +6,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 
 import { HomeComponent } from './home.component';
 import { AuthenGuardService } from 'app/authentication/authen-guard.service';
-import { Role } from 'app/user-permission/role';
+import { Role } from 'app/type/role';
 
 const routes = [
     {

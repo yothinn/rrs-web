@@ -5,7 +5,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthenService } from '../authen.service';
 import { Router } from '@angular/router';
-import { UserPermissionService } from 'app/user-permission/user-permission.service';
+import { UserPermissionService } from 'app/superadmin/user-permission.service';
 
 @Component({
     selector: 'login',
