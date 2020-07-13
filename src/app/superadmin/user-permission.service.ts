@@ -65,6 +65,13 @@ export class UserPermissionService {
             });
     });  
   }
+
+  /*
+   * assign permission restuarant
+   */
+  assignRestuarantToUser(restId, username) {
+
+  }
   
   /*
    * get All user

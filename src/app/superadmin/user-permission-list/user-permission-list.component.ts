@@ -62,6 +62,11 @@ export class UserPermissionListComponent implements OnInit {
     dlgRef.afterClosed().subscribe(dlgData => {
       // console.log(`Dialog result: ${JSON.stringify(dlgData)}`);
 
+      // Cancel Dialog
+      if (!dlgData) {
+        return;
+      }
+
       const authBody = {
         firstname: dlgData.displayname,
         lastname: '-',
@@ -88,26 +93,37 @@ export class UserPermissionListComponent implements OnInit {
       // 1. register to auth service
       this.auth.AddUser(authBody)
         .then((authRes) => {
-          console.log(`add user result: ${JSON.stringify(authRes)}`);
+          // console.log(`add user result: ${JSON.stringify(authRes)}`);
           // 2. create user to rrs service
           this.permission.addUser(permissionBody)
             .then((result) => {
-              // TODO : Alert create user success
-              console.log(`user permission result: ${JSON.stringify(result)}`);
+              alert('เพิ่มผู้ใช้สำเร็จ');
+              // Reload current page
+              window.location.reload();
+
+              // console.log(`user permission result: ${JSON.stringify(result)}`);
             })
             .catch((err) => {
-              // TODO : Alert error to user
+              alert('เกิดข้อผิดพลาดในการเพิ่มผู้ใช้งาน กรูณาลองใหม่อีกครั้ง')
               console.log(`User Permission error : ${err}`);
             });
         })
         .catch(authErr => {
-            // TODO : Alert error to user
+            alert('เกิดข้อผิดพลาดในการเพิ่มผู้ใช้งาน กรูณาลองใหม่อีกครั้ง')
             console.log(`auth error : ${authErr}`);
         });
     });
   }
 
-  // onChangeUserPermission(user) {
-  //   console.log(user);
-  // }
+  onEditUser(row) {
+
+  }
+
+  onDeleteUser(row) {
+
+  }
+
+  onChangePassword(row) {
+
+  }
 }

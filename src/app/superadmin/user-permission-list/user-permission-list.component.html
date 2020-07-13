@@ -60,9 +60,17 @@
             </button>
 
             <mat-menu #moreMenu>
-              <button mat-menu-item aria-label="edit" (click)="editData(row)">
+              <button mat-menu-item aria-label="edit" (click)="onEditUser(row)">
                 <mat-icon>edit</mat-icon>
-                <span>แก้ไข</span>
+                <span>แก้ไขข้อมูล</span>
+              </button>
+              <button mat-menu-item aria-label="edit" (click)="onChangePassword(row)">
+                <mat-icon>edit</mat-icon>
+                <span>เปลี่ยนรหัสผ่าน</span>
+              </button>
+              <button mat-menu-item aria-label="edit" (click)="onDeleteUser(row)">
+                <mat-icon>edit</mat-icon>
+                <span>ลบผู้ใช้งาน</span>
               </button>
             </mat-menu>
           </ng-template>
@@ -74,7 +82,6 @@
 </div>
 
 <button 
-  *ngIf="!isRestuarant"
   mat-raised-button 
   class="accent"
   id="btn-addUser"

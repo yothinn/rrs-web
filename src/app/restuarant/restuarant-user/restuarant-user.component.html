@@ -1,3 +1,59 @@
-<p>
-  restuarant-user works!
-</p>
+<div class="page-layout carded  fullwidth inner-scroll">
+  <!-- HEADER -->
+  <div class="header accent" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <span class="logo-text h1 pl-32 pt-16 pb-16"> 
+      กำหนดสิทธิผู้ใช้งาน
+    </span>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content-card">
+    <div class="content">
+      <ngx-datatable
+        class="material" 
+        [columnMode]="'force'" 
+        [headerHeight]="64" 
+        [footerHeight]="64"
+        rowHeight="auto" 
+        [scrollbarV]="true"
+        [scrollbarH]="true" 
+        [virtualization]="false"
+        [selected]="selected"
+        [selectionType]="SelectionType.single"
+        [rows]="rows" 
+      >
+        <ngx-datatable-column>
+          <ng-template ngx-datatable-cell-template let-row="row">
+            <mat-checkbox [checked]="true" (change)="onAssignRestuarantUser(row)"></mat-checkbox>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="ชื่อ-นามสกุล">
+          <ng-template ngx-datatable-cell-template let-row="row">
+            {{ row.displayname }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="ชื่อผู้ใช้">
+          <ng-template ngx-datatable-cell-template let-row="row">
+            {{ row.username }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="ตำแหน่ง">
+          <ng-template ngx-datatable-cell-template let-row="row">
+            {{ row.position }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="สิทธิ">
+          <ng-template ngx-datatable-cell-template let-row="row">
+            {{ row.roles[0] }}
+          </ng-template>
+        </ngx-datatable-column>
+
+
+      </ngx-datatable>
+    </div>
+  </div>
+</div>

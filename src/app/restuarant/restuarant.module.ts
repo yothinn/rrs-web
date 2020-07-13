@@ -9,6 +9,8 @@ import { MatFormFieldModule,
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { AuthenGuardService } from 'app/authentication/authen-guard.service';
@@ -116,6 +118,8 @@ const routes = [
     MatButtonModule,
     MatSlideToggleModule,
     MatCardModule,
+    MatCheckboxModule,
+    NgxDatatableModule,
   ],
   exports: [
     RestuarantInfoComponent,

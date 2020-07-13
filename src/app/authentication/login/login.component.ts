@@ -57,7 +57,9 @@ export class LoginComponent implements OnInit {
      */
     ngOnInit(): void {
         this.loginForm = this._formBuilder.group({
-            username: ['', [Validators.required, Validators.email]],
+            // username: ['', [Validators.required, Validators.email]],
+            // Change to username
+            username: ['', Validators.required],
             password: ['', Validators.required]
         });
 
@@ -66,14 +68,19 @@ export class LoginComponent implements OnInit {
     /**
      * On login button click
      */
-    login(): void {
+    async login() {
         const data = this.loginForm.getRawValue();
-        this.auth.login(data)
-            .then((result) => {
-                this.router.navigate(['']);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        try {
+            // Double check user @ authen and rrs service
+            // Check user authen @ authen service
+            const authResult = await this.auth.login(data);
+            console.log(authResult);
+            // Check user @ rrs service
+            const perResult = await this.permission.getUserPermission(authResult.username);
+            this.router.navigate(['']);
+        } catch(error) {
+            // TODO : !! Here : alert user unauthorize 
+            console.log(error);
+        }
     }
 }

@@ -23,6 +23,7 @@ import { Role } from 'app/type/role';
 import { UserPermissionListComponent } from './user-permission-list/user-permission-list.component';
 import { UserPermissionService } from './user-permission.service';
 import { CustomersListComponent } from './customers-list/customers-list.component';
+import { UserPermissionDialogComponent } from './user-permission-dialog/user-permission-dialog.component';
 
 const routes = [
   {
@@ -60,6 +61,7 @@ const routes = [
   declarations  : [
     DashboardComponent,
     UserPermissionListComponent,
+    UserPermissionDialogComponent,
     CustomersListComponent,
   ],
   imports       : [
@@ -83,8 +85,12 @@ const routes = [
   exports       : [
     DashboardComponent,
     UserPermissionListComponent,
+    UserPermissionDialogComponent,
     CustomersListComponent
-  ]
- 
+  ],
+  entryComponents: [
+    UserPermissionDialogComponent
+  ],
+
 })
 export class SuperadminModule { }

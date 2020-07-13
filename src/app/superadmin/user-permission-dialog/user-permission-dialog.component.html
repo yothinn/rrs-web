@@ -4,16 +4,41 @@
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>ชื่อ-นามสกุล</mat-label>
             <input matInput formControlName="displayname" name="displayname">
+            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+            <mat-error>
+                Name is required
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>ชื่อผู้ใช้</mat-label>
             <input matInput formControlName="username" name="username">
+            <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+            <mat-error *ngIf="userForm.get('username').hasError('required')">
+                Username is required
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>รหัสผ่าน</mat-label>
             <input type="password" matInput formControlName="password" name="password">
+            <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+            <mat-error>
+                Password is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Password (Confirm)</mat-label>
+            <input matInput type="password" formControlName="passwordConfirm">
+            <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+            <mat-error *ngIf="userForm.get('passwordConfirm').hasError('required')">
+                Password confirmation is required
+            </mat-error>
+            <mat-error *ngIf="!userForm.get('passwordConfirm').hasError('required') &&
+                               userForm.get('passwordConfirm').hasError('passwordsNotMatching')">
+                Passwords must match
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="outline">
@@ -24,6 +49,9 @@
                   {{position}}
                 </mat-option>
             </mat-select>
+            <mat-error>
+                Position is required
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="outline">
@@ -34,10 +62,13 @@
                   {{role}}
                 </mat-option>
             </mat-select>
+            <mat-error>
+                Role is required
+            </mat-error>
         </mat-form-field>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions>
+<mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="flex-end center">
     <button mat-raised-button class="warn" (click)="onCancel()">ยกเลิก</button>
-    <button mat-raised-button class="accent" (click)="onConfirm()">ตกลง</button>
+    <button mat-raised-button [disabled]="userForm.invalid" class="accent" (click)="onConfirm()">ตกลง</button>
 </mat-dialog-actions>
