@@ -2,7 +2,7 @@
   <!-- HEADER -->
   <div class="header accent" fxLayout="row wrap" fxLayoutAlign="space-between center">
     <span class="logo-text h1 pl-32 pt-16 pb-16"> 
-      กำหนดสิทธิผู้ใช้งาน
+      {{ "กำหนดสิทธิผู้ใช้งาน : " + restData.name}}
     </span>
   </div>
 
@@ -18,13 +18,16 @@
         [scrollbarV]="true"
         [scrollbarH]="true" 
         [virtualization]="false"
-        [selected]="selected"
-        [selectionType]="SelectionType.single"
         [rows]="rows" 
       >
         <ngx-datatable-column>
           <ng-template ngx-datatable-cell-template let-row="row">
-            <mat-checkbox [checked]="true" (change)="onAssignRestuarantUser(row)"></mat-checkbox>
+            <mat-checkbox 
+              [checked]="isCheckbox(row)" 
+              [disabled]="isSuperadmin(row)"
+              (change)="onAssignRestuarantUser($event, row)"
+            >
+            </mat-checkbox>
           </ng-template>
         </ngx-datatable-column>
 

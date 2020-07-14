@@ -7,6 +7,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { HomeComponent } from './home.component';
 import { AuthenGuardService } from 'app/authentication/authen-guard.service';
 import { Role } from 'app/type/role';
+import { RestuarantNotFoundComponent } from '../restuarant-not-found/restuarant-not-found.component';
 
 const routes = [
     {
@@ -21,6 +22,10 @@ const routes = [
                 Role.Staff
             ]
         }
+    },
+    {
+        path     : 'restuarantnotfound',
+        component:  RestuarantNotFoundComponent,
     }
 ];
 

@@ -125,7 +125,7 @@ export class RestuarantInfoComponent implements OnInit {
         )
   }
 
-  onEdit() {
+  onChangeEdit() {
     this.isReadOnly = false;
     this.restInfoForm.controls['activate'].enable();
   }
@@ -135,6 +135,9 @@ export class RestuarantInfoComponent implements OnInit {
     // and re-old data
     this.isReadOnly = true;
     this.restInfoForm.controls['activate'].disable();
+
+    // Re init form and data
+    this.initForm();
   }
 
   onUpdateConfirm() {
@@ -142,6 +145,20 @@ export class RestuarantInfoComponent implements OnInit {
     // and change data that update
     this.isReadOnly = true;
     this.restInfoForm.controls['activate'].disable();
+
+    this.restService.updateRestuarant(this.restData._id, this.restInfoForm.getRawValue())
+        .subscribe(
+          (res) => {
+            // TODO : alert update sucess
+            this.restData = res.data
+            console.log(res);
+            alert('update sucess');
+          },
+          (err) => {
+            // TODO : alert error
+            alert('update error');
+          }
+        )
   }
 
 }

@@ -33,6 +33,7 @@ import { ServerErrorInterceptor } from "./server-error.interceptor";
 import { HomeModule } from 'app/main/home/home.module';
 import { SuperadminModule } from './superadmin/superadmin.module';
 import { RestuarantModule } from './restuarant/restuarant.module';
+import { RestuarantNotFoundComponent } from './main/restuarant-not-found/restuarant-not-found.component';
 
 const appRoutes: Routes = [
     {
@@ -59,7 +60,8 @@ export const MY_FORMATS = {
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        RestuarantNotFoundComponent
     ],
     imports     : [
         BrowserModule,

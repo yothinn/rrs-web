@@ -65,13 +65,6 @@ export class UserPermissionService {
             });
     });  
   }
-
-  /*
-   * assign permission restuarant
-   */
-  assignRestuarantToUser(restId, username) {
-
-  }
   
   /*
    * get All user
@@ -84,7 +77,15 @@ export class UserPermissionService {
     return this.http.get(URI_USER, header);
   }
 
-   /*
+  updateUserPermission(objId, updateData): Observable<any> {
+    const header = {
+      headers: this.auth.getAuthorizationHeader(),
+    };
+
+    return this.http.put(`${URI_USER}/${objId}`, updateData, header);
+  }
+
+  /*
    * get user permission by username
    * @param {string} username
    */

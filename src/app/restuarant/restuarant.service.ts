@@ -10,7 +10,7 @@ import { restuarantNav,
           REST_USER_URL,
           REST_HOLIDAY_URL } from 'app/navigation/navigation';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { AuthenService } from 'app/authentication/authen.service';
 import { environment } from 'environments/environment';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
@@ -26,6 +26,7 @@ export class RestuarantService {
 
   routeParams: any;
   restId: any;
+
 
   constructor(
     private _fuseNavigationService: FuseNavigationService,
@@ -47,26 +48,28 @@ export class RestuarantService {
     // initial nav bar (necessary use restuarant id)
     this.initRestuarantNav();
 
-    return this.getRestuarantInfo(this.restId);
-    
-
     // แยกแต่่ละ route ด้วย route.url
-    // const url = `/${route.url[0].path}/${route.url[1].path}`;
+    const url = `/${route.url[0].path}/${route.url[1].path}`;
     // console.log(route);
     // console.log(url);
 
-    // // Pre load data each routh
-    // switch (url) {
-    //   case REST_DASHBOARD_URL:
-    //     // TODO: change later : get mealinfo
-    //     return this.getRestuarantInfo(this.restId);
-    //   case REST_INFO_URL:
-    //     return this.getRestuarantInfo(this.restId);
-    //   case REST_USER_URL:
-    //     return;
-    //   case REST_HOLIDAY_URL:
-    //     return;
-    // }
+    switch (url) {
+      case REST_DASHBOARD_URL:
+        // TODO: change later : get mealinfo
+        return this.getRestuarantInfo(this.restId);
+      case REST_INFO_URL:
+        return this.getRestuarantInfo(this.restId);
+      case REST_USER_URL:
+        // concurrent multiple request
+        return forkJoin([
+          this.getRestuarantInfo(this.restId),
+          this.permission.getUserList()
+        ]);
+      case REST_HOLIDAY_URL:
+        // TODO: chanage later : get holiday info
+        return this.getRestuarantInfo(this.restId);
+    }
+
   }
 
   /*
