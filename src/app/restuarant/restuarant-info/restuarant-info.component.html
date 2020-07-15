@@ -28,11 +28,17 @@
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
             <mat-label>ชื่อร้านค้า</mat-label>
             <input matInput [readonly]="isReadOnly" formControlName="name" name="name">
+            <mat-error>
+              กรุณาระบุชื่อร้านค้า
+          </mat-error>
           </mat-form-field>
               
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
             <mat-label>ชื่อแสดงผล</mat-label>
             <input matInput [readonly]="isReadOnly" formControlName="displayName" name="displayName">
+            <mat-error>
+              กรุณาระบุชื่อที่ใช้แสดงผล
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
@@ -51,33 +57,78 @@
         <!--  Address Form -->
         <div formGroupName="location" fxLayout="column" fxFlex class="mr-32">
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-            <mat-label>บ้านเลขที่</mat-label>
+            <mat-label>บ้านเลขที่/หมู่/ซอย</mat-label>
             <input matInput [readonly]="isReadOnly" formControlName="addressLine1" name="addressLine1">
+            <mat-error>
+              กรุณาระบุบ้านเลขที่/หมู่/ซอย
+            </mat-error>
           </mat-form-field>
         
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
             <mat-label>ถนน</mat-label>
             <input matInput [readonly]="isReadOnly" formControlName="addressStreet" name="addressStreet">
+            <mat-error>
+              กรุณาระบุถนน
+            </mat-error>
           </mat-form-field>
         
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
             <mat-label>รหัสไปรษณีย์</mat-label>
-            <input matInput [readonly]="isReadOnly" formControlName="addressPostalCode" name="addressPostCode">
+            <input matInput 
+              maxlength="5" minlength="5"
+              [readonly]="isReadOnly" 
+              (keyup)="filterPostalCode($event)" 
+              [matAutocomplete]="auto"
+              formControlName="addressPostalCode" 
+              name="addressPostalCode"
+            >
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='setPostalCode($event.option)'>
+              <mat-option *ngFor="let code of filterPostalCodeList.slice(0,10)" [value]="code.postcode">
+                <span>{{ code.postcode }}</span> |
+                <small>{{ code.subdistrict }}</small> |
+                <small>{{ code.district }}</small> |
+                <small>{{ code.province }}</small>
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error>
+              กรุณาระบุรหัสไปรษณีย์
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
             <mat-label>ตำบล/แขวง</mat-label>
-            <input matInput [readonly]="isReadOnly" formControlName="addressSubDistrict" name="addressSubDistrict">
+            <input matInput 
+              [readonly]="isReadOnly" 
+              formControlName="addressSubDistrict" 
+              name="addressSubDistrict"
+            >
+            <mat-error>
+              กรุณาระบุตำบล/แขวง
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
             <mat-label>อำเภอ/เขต</mat-label>
-            <input matInput [readonly]="isReadOnly" formControlName="addressDistrict" name="addressDistrict">
+            <input matInput 
+              [readonly]="isReadOnly" 
+              formControlName="addressDistrict" 
+              name="addressDistrict"
+            >
+            <mat-error>
+              กรุณาระบุอำเภอ/เขต
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
             <mat-label>จังหวัด</mat-label>
-            <input matInput [readonly]="isReadOnly" formControlName="addressProvince" name="addressProvince">
+            <input matInput 
+              [readonly]="isReadOnly" 
+              formControlName="addressProvince" 
+              name="addressProvince"
+            >
+            <mat-error>
+              กรุณาระบุจังหวัด
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -85,23 +136,48 @@
         <div fxLayout="column" fxFlex>
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
             <mat-label>เบอร์มือถือ</mat-label>
-            <input matInput maxlength="10" minlength="10" [readonly]="isReadOnly" formControlName="mobileNo" name="mobileNo">
+            <input matInput 
+              maxlength="10" minlength="10" 
+              type="text"
+              [readonly]="isReadOnly" 
+              formControlName="mobileNo" 
+              name="mobileNo"
+            >
+            <mat-error>
+              กรุณาระบุเบอร์มือถือ
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
             <mat-label>เบอร์อื่นๆ</mat-label>
-            <input matInput [readonly]="isReadOnly" formControlName="otherNo" name="otherNo">
+            <input matInput 
+              [readonly]="isReadOnly" 
+              type="text"
+              formControlName="otherNo" 
+              name="otherNo"
+            >
           </mat-form-field>
 
           <mat-form-field class="example-full-width" appearance="outline" fxFlex>
             <mat-label>จำนวนรองรับ</mat-label>
-            <input matInput [readonly]="isReadOnly" formControlName="maxGuestCapacity" name="maxGuestCapacity">
+            <input matInput 
+              type="number"
+              [readonly]="isReadOnly" 
+              formControlName="maxGuestCapacity" 
+              name="maxGuestCapacity"
+            >
+            <mat-error>
+              กรุณาระบุจำนวนรองรับ
+            </mat-error>
           </mat-form-field>
 
-          <div class="example-full-width" appearance="outline" fxFlex fxLayoutAlign="space-between center">
+          <div class="example-full-width"
+            appearance="outline" fxFlex 
+            fxLayoutAlign="space-between center"
+          >
             <mat-slide-toggle formControlName="activate" fxFlex >
               <span class="h2">
-                เปิดรับการจอง
+                {{ restInfoForm.controls['activate'].value ? "เปิดรับการจอง" : "ปิดรับการจอง" }}
               </span>
             </mat-slide-toggle>
           </div>
@@ -124,7 +200,11 @@
               </button>
             </div>
             <div>
-              <button mat-raised-button class="accent ml-16 mr-32" (click)="onCreate()">
+              <button mat-raised-button 
+                class="accent ml-16 mr-32" 
+                [disabled]="restInfoForm.invalid"
+                (click)="onCreate()"
+              >
                 บันทึก
               </button>
             </div>
@@ -138,17 +218,30 @@
           *ngIf="!isCreate"
         >
           <div>
-            <button mat-raised-button *ngIf="isReadOnly" class="accent ml-16 mr-32" (click)="onChangeEdit()">
+            <button mat-raised-button 
+              *ngIf="isReadOnly" 
+              class="accent ml-16 mr-32" 
+              (click)="onChangeEdit()"
+            >
               แก้ไข
             </button>
           </div>
           <div>
-            <button mat-raised-button color="warn" *ngIf="!isReadOnly" class="ml-16 mr-16" (click)="onUpdateCancel()">
+            <button mat-raised-button 
+              color="warn" 
+              *ngIf="!isReadOnly" 
+              class="ml-16 mr-16" 
+              (click)="onCancelEdit()"
+            >
               ยกเลิกแก้ไข
             </button>
           </div>
           <div>
-            <button mat-raised-button class="accent ml-16 mr-32" *ngIf="!isReadOnly" (click)="onUpdateConfirm()">
+            <button mat-raised-button 
+              class="accent ml-16 mr-32" 
+              *ngIf="!isReadOnly" 
+              (click)="onConfirmEdit()"
+            >
               บันทึกแก้ไข
             </button>
           </div>
@@ -159,31 +252,3 @@
     </form>
   </div>
 </div>
-
-
-
-
-<!-- <div class="pl-20 pr-16 h1 pb-20 pt-20">
-  <mat-label>ข้อมูลส่วนตัว</mat-label>
-</div> -->
-
-<!-- <div fxLayout="row wrap" formGroupName="personalInfo" fxFlex="100">
-  <div fxLayoutAlign="center" fxFlex="100" fxFlex.gt-xs="20" class="pl-20 pr-16">
-    <mat-form-field appearance="outline" fxFlex>
-      <mat-label>คำนำหน้าชื่อ</mat-label>
-      <mat-select formControlName="title" name="title">
-        <mat-option *ngFor="let itemt of title" [value]="itemt.viewValue">
-          {{itemt.value}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <div fxLayoutAlign="center" fxFlex="100" fxFlex.gt-xs="40" class="pl-20 pr-16">
-    <mat-form-field class="example-full-width" appearance="outline" fxFlex>
-      <mat-label>ชื่อ</mat-label>
-      <input matInput formControlName="firstNameThai" name="firstNameThai">
-      <mat-error
-        *ngIf="involvedpartyForm.get('personalInfo').get('firstNameThai').hasError('required')">
-        กรุณาระบุ ชื่อ</mat-error>
-    </mat-form-field>
-  </div> -->

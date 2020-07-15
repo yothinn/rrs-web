@@ -59,7 +59,7 @@ export class UserPermissionListComponent implements OnInit {
       height: '600px'
     });
 
-    dlgRef.afterClosed().subscribe(dlgData => {
+    dlgRef.afterClosed().subscribe(async dlgData => {
       // console.log(`Dialog result: ${JSON.stringify(dlgData)}`);
 
       // Cancel Dialog
@@ -90,29 +90,33 @@ export class UserPermissionListComponent implements OnInit {
       };
 
       
-      // 1. register to auth service
-      this.auth.AddUser(authBody)
-        .then((authRes) => {
-          // console.log(`add user result: ${JSON.stringify(authRes)}`);
-          // 2. create user to rrs service
-          this.permission.addUser(permissionBody)
-            .then((result) => {
-              alert('เพิ่มผู้ใช้สำเร็จ');
-              // Reload current page
-              window.location.reload();
+      try {
+        // 1. register to auth service
+        const authRes = await this.auth.addUser(authBody);
+        // console.log(`add user result: ${JSON.stringify(authRes)}`);
 
-              // console.log(`user permission result: ${JSON.stringify(result)}`);
-            })
-            .catch((err) => {
-              alert('เกิดข้อผิดพลาดในการเพิ่มผู้ใช้งาน กรูณาลองใหม่อีกครั้ง')
-              console.log(`User Permission error : ${err}`);
-            });
-        })
-        .catch(authErr => {
-            alert('เกิดข้อผิดพลาดในการเพิ่มผู้ใช้งาน กรูณาลองใหม่อีกครั้ง')
-            console.log(`auth error : ${authErr}`);
-        });
+        // 2. create user to rrs service
+        this.permission.addUser(permissionBody).subscribe(
+          (result) => {
+            // TODO : alert 
+            alert('เพิ่มผู้ใช้สำเร็จ');
+            // Reload current page
+            window.location.reload();
+            // console.log(`user permission result: ${JSON.stringify(result)}`);
+          },
+          (err) => {
+            // TODO : alert
+            alert('เกิดข้อผิดพลาดในการเพิ่มผู้ใช้งาน กรูณาลองใหม่อีกครั้ง');
+            // console.log(`User Permission error : ${JSON.stringify(err)}`);
+          }
+        );
+      } catch (err) {
+        // TODO: alert
+        alert('เกิดข้อผิดพลาดในการเพิ่มผู้ใช้งาน กรูณาลองใหม่อีกครั้ง');
+        // console.log(`auth error : ${JSON.stringify(err)}`);
+      }
     });
+
   }
 
   onEditUser(row) {

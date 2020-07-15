@@ -49,21 +49,12 @@ export class UserPermissionService {
    *    restuarantId: ["id1", "id2"],
    * }
    */
-  addUser(body) {
+  addUser(body): Observable<any> {
     const header = {
       headers: this.auth.getAuthorizationHeader(),
     };
       
-    return new Promise((resolve, reject) => {
-      this.http.post(URI_USER, body, header)
-          .subscribe(
-            (res: any) => {
-              resolve(res.data);
-            },
-            (err) => {
-              reject(err);
-            });
-    });  
+    return this.http.post(URI_USER, body, header);
   }
   
   /*

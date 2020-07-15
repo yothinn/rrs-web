@@ -55,15 +55,53 @@ export class AuthenService {
 
   }
 
-  AddUser(data: any): Promise<any> {
+  /*
+   * add user in auth service same as register but not keep token
+   * Remark : user signup instead of create because encrype password in auth service
+   * @param {json} data : user info include password
+   */
+  addUser(data: any): Promise<any> {
 
     return new Promise((resolve, reject) => {
-      this.http.post(`${environment.authApiUrl}/api/auth/signup`, data).subscribe((res: any) => {
+      this.http.post(`${environment.authApiUrl}/api/auth/adduser`, data).subscribe((res: any) => {
         const user = res.token ? this.jwt.decodeToken(res.token) : null;
         resolve(user);
       }, reject);
     });
+  }
 
+  /*
+   * update user info !! not password
+   * @param {} id : object id
+   * @param {json data} data : user data (not password)
+   */
+  updateUser(id: any, data: any): Promise<any> {
+    const header = {
+      headers: this.getAuthorizationHeader()
+    };
+
+    // for security : not update password in this function
+    delete data.password;
+
+    return new Promise((resolve, reject) => {
+      this.http.put(`${environment.authApiUrl}/api/users/${id}`, data, header)
+          .subscribe((res: any) => {
+            resolve(res.data);
+          }, reject);
+    });
+  }
+
+  getUserById(id: any): Promise<any> {
+    const header = {
+      headers: this.getAuthorizationHeader()
+    };
+
+    return new Promise((resolve, reject) => {
+      this.http.get(`${environment.authApiUrl}/api/users/${id}`, header)
+          .subscribe((res: any) => {
+            resolve(res.data);
+          }, reject);
+    });
   }
 
   logout(): Promise<any> {
