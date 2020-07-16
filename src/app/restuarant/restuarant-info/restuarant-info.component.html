@@ -239,7 +239,8 @@
           <div>
             <button mat-raised-button 
               class="accent ml-16 mr-32" 
-              *ngIf="!isReadOnly" 
+              *ngIf="!isReadOnly"
+              [disabled]="restInfoForm.invalid" 
               (click)="onConfirmEdit()"
             >
               บันทึกแก้ไข

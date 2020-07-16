@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SelectionType, ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,13 +7,15 @@ import { AuthenService } from 'app/authentication/authen.service';
 import { RestuarantService } from 'app/restuarant/restuarant.service';
 import { UserPermissionService } from 'app/superadmin/user-permission.service';
 import { Role } from 'app/type/role';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-restuarant-user',
   templateUrl: './restuarant-user.component.html',
   styleUrls: ['./restuarant-user.component.scss']
 })
-export class RestuarantUserComponent implements OnInit {
+export class RestuarantUserComponent implements OnInit, OnDestroy {
 
    // Data table
    ColumnMode = ColumnMode;
@@ -24,6 +26,8 @@ export class RestuarantUserComponent implements OnInit {
    restData: any;
    userList: any;
 
+  private _unsubscribeAll: Subject<any>;
+
   constructor(
     private _fuseTranslationLoaderService: FuseTranslationLoaderService,
     private router: Router,
@@ -33,10 +37,11 @@ export class RestuarantUserComponent implements OnInit {
     private restService: RestuarantService,
     private spinner: NgxSpinnerService,
   ) { 
-
+    // Set the private defaults
+    this._unsubscribeAll = new Subject();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Mockup data
     // this.selected = [this.rows[2] ];   
     // this.rows = [
@@ -56,7 +61,13 @@ export class RestuarantUserComponent implements OnInit {
     // TODO : ควรแสดง user ที่ login เข้ามาไหม ??
   }
 
-  onAssignRestuarantUser(event: any, row) {
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
+
+  onAssignRestuarantUser(event: any, row): void {
     // console.log(event);
     // console.log(row);
     if (event.checked) {
@@ -68,6 +79,7 @@ export class RestuarantUserComponent implements OnInit {
     }
 
     this.permission.updateUserPermission(row._id, row)
+        .pipe(takeUntil(this._unsubscribeAll))
         .subscribe(
           (res) => {
             // TODO : Alert update success
@@ -80,7 +92,7 @@ export class RestuarantUserComponent implements OnInit {
             // console.log('cannot update user permission');
             alert('cannot user user permission');
           }
-        )
+        );
   }
 
   /*

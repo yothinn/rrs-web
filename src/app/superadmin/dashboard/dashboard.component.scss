@@ -15,7 +15,15 @@
 }
   
 .restuarantCard {
-    width: 250px;
-    height: 250px;
+    max-width: 300px;
     margin: 15px 15px 15px 15px;
+}
+
+#imgCard {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#contentCard {
+    overflow: hidden;
 }

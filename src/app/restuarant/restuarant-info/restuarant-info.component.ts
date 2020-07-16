@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -13,7 +15,7 @@ import { PostalcodeService } from 'app/services/postalcode.service';
   templateUrl: './restuarant-info.component.html',
   styleUrls: ['./restuarant-info.component.scss']
 })
-export class RestuarantInfoComponent implements OnInit {
+export class RestuarantInfoComponent implements OnInit, OnDestroy {
 
   POSTCODE_PATTERN = /^[0-9]{5,5}$/;
   MOBILE_PATTERN = /^[0-9]{10,10}$/;
@@ -27,13 +29,18 @@ export class RestuarantInfoComponent implements OnInit {
   postalCodeList: any = [];
   filterPostalCodeList: any = [];
 
+  private _unsubscribeAll: Subject<any>;
+
   constructor(
     private fb: FormBuilder,
     private restService: RestuarantService,
     private router: Router,
     private route: ActivatedRoute,
     private postalCodeSrv: PostalcodeService
-  ) { }
+  ) { 
+    // Set the private defaults
+    this._unsubscribeAll = new Subject();
+  }
 
   ngOnInit(): void {
     // when new isCreate is true
@@ -57,6 +64,12 @@ export class RestuarantInfoComponent implements OnInit {
       // console.log(this.postalCodeList);
       this.setValidatePostalCode();
     });
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   private initForm(): void {
@@ -84,7 +97,6 @@ export class RestuarantInfoComponent implements OnInit {
     }
     // assign value to form
     this.restInfoForm = this.fb.group ({
-      // TODO: check validate
       name: [this.restData.name, Validators.required],
       displayName: [this.restData.displayName, Validators.required],
       description: [this.restData.description],
@@ -139,6 +151,7 @@ export class RestuarantInfoComponent implements OnInit {
   onCreate(): void {
     // console.log(this.restInfoForm.getRawValue());
     this.restService.createRestuarant(this.restInfoForm.getRawValue())
+        .pipe(takeUntil(this._unsubscribeAll))
         .subscribe(
           result => {
             // TODO: alert when create success
@@ -149,7 +162,7 @@ export class RestuarantInfoComponent implements OnInit {
             // TODO : Alert error
             console.log(err);
           }
-        )
+        );
   }
 
   onChangeEdit(): void {
@@ -176,6 +189,7 @@ export class RestuarantInfoComponent implements OnInit {
     this.restInfoForm.controls['activate'].disable();
 
     this.restService.updateRestuarant(this.restData._id, this.restInfoForm.getRawValue())
+        .pipe(takeUntil(this._unsubscribeAll))
         .subscribe(
           (res) => {
             // TODO : alert update sucess
@@ -187,7 +201,7 @@ export class RestuarantInfoComponent implements OnInit {
             // TODO : alert error
             alert('update error');
           }
-        )
+        );
   }
 
   /*
@@ -199,7 +213,7 @@ export class RestuarantInfoComponent implements OnInit {
     // TODO : ?? can change to rxjs
     // filter our data
     this.filterPostalCodeList = this.postalCodeList.filter((code: any) => {
-      return code.postcode.indexOf(event.target.value) !== -1;
+      return code.postcode.startsWith(event.target.value);
     });
   }
 

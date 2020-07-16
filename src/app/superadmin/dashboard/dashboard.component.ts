@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
 
     this.emptyRest = this.restList.length ? false : true;
 
-    console.log(this.restList);
+    // console.log(this.restList);
 
   }
 
