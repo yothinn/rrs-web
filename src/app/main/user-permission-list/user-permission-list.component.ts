@@ -21,9 +21,9 @@ export class UserPermissionListComponent implements OnInit, OnDestroy {
 
   // Data table
   ColumnMode = ColumnMode;
-  SelectionType = SelectionType;
+  // SelectionType = SelectionType;
   rows: Array<any> = [];
-  selected: Array<any> = [];
+  // selected: Array<any> = [];
 
   private _unsubscribeAll: Subject<any>;
 

@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthenService } from 'app/authentication/authen.service';
 import { RestuarantService } from 'app/restuarant/restuarant.service';
-import { UserPermissionService } from 'app/superadmin/user-permission.service';
+import { UserPermissionService } from 'app/main/user-permission.service';
 import { Role } from 'app/type/role';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -34,7 +34,6 @@ export class RestuarantUserComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private permission: UserPermissionService,
     private auth: AuthenService,
-    private restService: RestuarantService,
     private spinner: NgxSpinnerService,
   ) { 
     // Set the private defaults
@@ -75,7 +74,7 @@ export class RestuarantUserComponent implements OnInit, OnDestroy {
     } else {
       // Delete restuarant id out of list
       const index = row.restuarantId.indexOf(this.restData._id);
-      delete row.restuarantId[index];
+      row.restuarantId.splice(index, 1);
     }
 
     this.permission.updateUserPermission(row._id, row)

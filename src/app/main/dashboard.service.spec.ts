@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SuperadminService } from './superadmin.service';
+import { DashboardService } from './dashboard.service';
 
-describe('SuperadminService', () => {
+describe('DashboardService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: SuperadminService = TestBed.get(SuperadminService);
+    const service: DashboardService = TestBed.get(DashboardService);
     expect(service).toBeTruthy();
   });
 });

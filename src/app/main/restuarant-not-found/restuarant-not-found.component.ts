@@ -21,9 +21,9 @@ export class RestuarantNotFoundComponent implements OnInit {
           navbar: {
               hidden: true
           },
-          // toolbar: {
-          //     hidden: true
-          // },
+          toolbar: {
+              hidden: false
+          },
           footer: {
               hidden: true
           },
@@ -31,7 +31,7 @@ export class RestuarantNotFoundComponent implements OnInit {
               hidden: true
           }
       }
-  };
+    };
   }
 
 }

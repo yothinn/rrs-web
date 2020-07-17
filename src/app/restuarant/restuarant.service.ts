@@ -14,7 +14,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { AuthenService } from 'app/authentication/authen.service';
 import { environment } from 'environments/environment';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { UserPermissionService } from 'app/superadmin/user-permission.service';
+import { UserPermissionService } from 'app/main/user-permission.service';
 
 
 const URI_RESTUARANT = environment.apiUrl + '/api/restuarants';
@@ -83,7 +83,7 @@ export class RestuarantService {
     return this.http.get(URI_RESTUARANT, header);
   }
 
-   /*
+  /*
   * get restuarant info by object id
   * @param {string} id : object id of restuarant
   */
@@ -95,6 +95,7 @@ export class RestuarantService {
     return this.http.get(`${URI_RESTUARANT}/${id}`, header);
   }
 
+  
   /*
    * create restuarant
    * @param {json data} restData => restuarant data 
@@ -123,7 +124,7 @@ export class RestuarantService {
   /*
    * when route to restuarant , initial restuarant nav bar
    */
-  private initRestuarantNav() {
+  private initRestuarantNav(): void {
    
     // current nav bar is restuarant , not initial
     if (this._fuseNavigationService.getCurrentNavigation() === REST_NAVNAME) {
@@ -154,8 +155,8 @@ export class RestuarantService {
           { url: `${REST_HOLIDAY_URL}/${this.restId}`});
     
     // Back to main menu, only show when roles is superadmin
-    this._fuseNavigationService.updateNavigationItem('backMain', 
-          { hidden: !this.auth.isSuperadmin() } );
+    // this._fuseNavigationService.updateNavigationItem('backMain', 
+    //       { hidden: !this.auth.isSuperadmin() } );
   }
 
 }

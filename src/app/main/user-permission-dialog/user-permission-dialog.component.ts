@@ -60,11 +60,12 @@ export class UserPermissionDialogComponent implements OnInit, OnDestroy {
   }
 
   onConfirm(): void {
-    // TODO : change to rxjs
+    // Check duplicate username
     this.permission.getUserPermission(this.userForm.controls['username'].value)
-        .then(
+        .pipe(takeUntil(this._unsubscribeAll))
+        .subscribe(
           (res) => {
-            if (res) {
+            if (res.data) {
               // TODO : change to validateFn
               alert('ชื่อผู้ใช้ซ้ำ กรุณาเปลี่ยนชื่อผู้ใช้อีกครั้ง');
               console.log(res);

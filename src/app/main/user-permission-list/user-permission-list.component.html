@@ -18,8 +18,6 @@
         [scrollbarV]="true"
         [scrollbarH]="true" 
         [virtualization]="false"
-        [selected]="selected"
-        [selectionType]="SelectionType.single"
         [rows]="rows" 
       >
 
@@ -44,6 +42,12 @@
         <ngx-datatable-column name="สิทธิ">
           <ng-template ngx-datatable-cell-template let-row="row">
             {{ row.roles[0] }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="จำนวนร้าน">
+          <ng-template ngx-datatable-cell-template let-row="row">
+            {{ row.restuarantId.length > 0 ? row.restuarantId.length : "-" }}
           </ng-template>
         </ngx-datatable-column>
 

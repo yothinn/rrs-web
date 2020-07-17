@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthenService } from '../authen.service';
 import { Router } from '@angular/router';
-import { UserPermissionService } from 'app/superadmin/user-permission.service';
+import { UserPermissionService } from 'app/main/user-permission.service';
 
 @Component({
     selector: 'login',
@@ -14,8 +16,12 @@ import { UserPermissionService } from 'app/superadmin/user-permission.service';
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
     loginForm: FormGroup;
+
+    // Private
+    private _unsubscribeAll: Subject<any>;
+
     /**
      * Constructor
      *
@@ -46,6 +52,9 @@ export class LoginComponent implements OnInit {
                 }
             }
         };
+
+         // Set the private defaults
+         this._unsubscribeAll = new Subject();
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -66,21 +75,37 @@ export class LoginComponent implements OnInit {
     }
 
     /**
+     * On destroy
+     */
+    ngOnDestroy(): void {
+        // Unsubscribe from all subscriptions
+        this._unsubscribeAll.next();
+        this._unsubscribeAll.complete();
+    }
+
+    /**
      * On login button click
      */
-    async login() {
+    login() {
         const data = this.loginForm.getRawValue();
-        try {
-            // Double check user @ authen and rrs service
-            // Check user authen @ authen service
-            const authResult = await this.auth.login(data);
-            console.log(authResult);
-            // Check user @ rrs service
-            const perResult = await this.permission.getUserPermission(authResult.username);
-            this.router.navigate(['']);
-        } catch(error) {
-            // TODO : !! Here : alert user unauthorize 
-            console.log(error);
-        }
+
+        // Double check user @ authen and rrs service
+        // Check user authen @ authen service
+        this.auth.login(data)
+            .then((authResult) => {
+                // Check user @ rrs service
+                // console.log(authResult);
+                this.permission.loginUser(authResult.username)
+                    .pipe(takeUntil(this._unsubscribeAll))
+                    .subscribe((res) => {
+                        // console.log(res);
+                        this.router.navigate(['']);
+                    });
+            })
+            .catch((err) => {
+                // TODO : !! Here : alert user unauthorize 
+                // TODO : throw error and global intercept error;
+                console.log(err);
+            });
     }
 }

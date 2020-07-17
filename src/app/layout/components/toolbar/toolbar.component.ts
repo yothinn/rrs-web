@@ -28,6 +28,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     userStatusOptions: any[];
     user: any;
 
+    restList: any[];
+
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -43,7 +45,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
         private router: Router,
-        private auth: AuthenService
+        private auth: AuthenService,
     ) {
         // Set the defaults
         this.userStatusOptions = [
@@ -114,9 +116,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         this.selectedLanguage = _.find(this.languages, { 'id': this._translateService.currentLang });
 
         // this.user = this.auth.user || {};
-        this.auth.onUserDataChanged.subscribe((user) => {
-            this.user = user;
-        });
+        this.auth.onUserDataChanged
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((user) => {
+                this.user = user;
+            });
+
     }
 
     /**

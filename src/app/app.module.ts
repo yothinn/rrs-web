@@ -30,8 +30,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { GlobalErrorHandler } from "./global-error-handler";
 import { ServerErrorInterceptor } from "./server-error.interceptor";
 
-import { HomeModule } from 'app/main/home/home.module';
-import { SuperadminModule } from './superadmin/superadmin.module';
+import { HomeModule } from 'app/main/home.module';
 import { RestuarantModule } from './restuarant/restuarant.module';
 import { RestuarantNotFoundComponent } from './main/restuarant-not-found/restuarant-not-found.component';
 
@@ -90,7 +89,6 @@ export const MY_FORMATS = {
         LayoutModule,
         NgxSpinnerModule,
         HomeModule,
-        SuperadminModule,
         RestuarantModule,
     ],
     bootstrap   : [

@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AuthenService } from 'app/authentication/authen.service';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'environments/environment';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 const URI_USER = environment.apiUrl + '/api/rrs/user';
 const URI_USERPERMISSION = environment.apiUrl + '/api/rrs/userpermission';
@@ -12,14 +14,32 @@ const URI_USERPERMISSION = environment.apiUrl + '/api/rrs/userpermission';
 @Injectable({
   providedIn: 'root'
 })
-export class UserPermissionService {
+export class UserPermissionService implements OnDestroy {
 
   permission: any = {};
+
+   // Private
+   private _unsubscribeAll: Subject<any>;
 
   constructor(
     private auth: AuthenService,
     private http: HttpClient
   ) { 
+      // Set the private defaults
+      this._unsubscribeAll = new Subject();
+
+      console.log(this.auth.user.username);
+      this.loginUser(this.auth.user.username)
+          .pipe(takeUntil(this._unsubscribeAll))
+          .subscribe((res) => {
+            // Nothing to do
+          });
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
@@ -33,6 +53,33 @@ export class UserPermissionService {
       // TODO : if network loss can't get user list , what happening
        return this.getUserList();
     // }
+  }
+
+  loginUser(username): Observable<any> {
+    const header = {
+      headers: this.auth.getAuthorizationHeader(),
+    };
+    
+    return this.getUserPermission(username)
+                .pipe(
+                  map((res:any) => {
+                    // console.log(res);
+                    this.permission = res.data;
+                  }
+                ));
+  }
+
+  getCurrUserPermission(): any {
+    return this.permission;
+  }
+
+  /*
+   * Get current Restuarant Permission for this user
+   * @return : id string of restuarant
+   * if is superadmin it is empty
+   */
+  getCurrRestuarantPermission(): any[] {
+     return this.permission ? this.permission.restuarantId : [];
   }
 
   /*
@@ -80,7 +127,7 @@ export class UserPermissionService {
    * get user permission by username
    * @param {string} username
    */
-  getUserPermission(username: string): Promise<any> {
+  getUserPermission(username: string): Observable<any> {
     const body = {
       username: username,
     };
@@ -90,27 +137,7 @@ export class UserPermissionService {
     };
 
     // console.log(username);
-    return new Promise((resolve, reject) => {
-      this.http.post(URI_USERPERMISSION, body, header)
-        .subscribe(
-          (res: any) => {
-            this.permission = res.data;
-            // console.log(this.permission);
-            resolve(this.permission);
-          },
-          (err) => {
-            reject(err);
-          }
-        );
-    });    
+    return this.http.post(URI_USERPERMISSION, body, header);   
   }
 
-  /*
-   * Get Restuarant Permission for this user
-   * @return : id string of restuarant
-   * if is superadmin it is empty
-   */
-  getRestuarantPermission(): any[] {
-    return this.permission ? this.permission.restuarantId : [];
-  }
 }
